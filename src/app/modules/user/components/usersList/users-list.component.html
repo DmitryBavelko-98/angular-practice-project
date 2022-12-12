@@ -1,0 +1,27 @@
+<!-- <ng-container *ngFor="let user of users">
+    <mat-card *ngIf="user.isActivated || nonActiveUsers">
+
+    </mat-card>
+</ng-container> -->
+
+<div class="users-list">
+    <mat-card *ngFor="let user of users" [class.hidden]="!user.isActivated && !nonActiveUsers">
+        <div class="user-info">
+            <mat-card-content>{{ user.name }}</mat-card-content>
+            <mat-card-content>{{ user.age }}</mat-card-content>
+            <mat-card-content [ngClass]="{ 'non-active': !user.isActivated, 'active': user.isActivated }">
+                {{ user.isActivated ? 'Active' : 'Non-Active' }}
+            </mat-card-content>
+        </div>
+        <button mat-raised-button color="primary"
+                [disabled]="!user.isActivated" 
+                (click)="removeActivity(user.name)">
+            Deactivate  
+        </button>
+    </mat-card>
+    
+    <button mat-raised-button color="accent"
+        (click)="toggleUsers()"> 
+        {{ nonActiveUsers ? hideMessage : showMessage }} 
+    </button>
+</div>

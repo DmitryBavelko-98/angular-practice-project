@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FirstPageComponent } from './first-page/first-page.component';
-import { SecondPageComponent } from './second-page/second-page.component';
+import { CarPageComponent } from './modules/car/components/carPage/car-page.component';
+import { UserPageComponent } from './modules/user/components/userPage/user-page.component';
 
 const routes: Routes = [
-  {path: '', redirectTo:'/page1', pathMatch: 'full'},
-  {path: 'page1', component: FirstPageComponent},
-  {path: 'page2', component: SecondPageComponent},
+  {path: '', redirectTo:'/users', pathMatch: 'full'},
+  {path: 'users', component: UserPageComponent},
+  {path: 'cars', component: CarPageComponent},
 ];
 
 @NgModule({

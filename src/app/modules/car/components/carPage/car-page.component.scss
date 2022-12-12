@@ -1,0 +1,24 @@
+@import 'variables';
+
+.car-form {
+    padding: 20px;
+    max-width: 400px;
+
+    font-size: 1.5rem;
+
+    div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgb(235, 245, 144);
+        max-width: 50%;
+        color: $primaryFontColor;
+        height: 50px;
+        border-radius: 5px;
+        font-size: 2rem;
+    }
+
+    input {
+        color: $secondaryFontColor;
+    }
+}

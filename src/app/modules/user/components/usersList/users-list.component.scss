@@ -1,0 +1,41 @@
+@import 'variables';
+
+.users-list {
+    margin: 0 auto;
+    max-width: 60%;
+}
+
+.user-info {
+    display: flex;
+    gap: 30px;
+}
+
+mat-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 20px;
+    margin: 0 0 20px 0;
+    color: $primaryFontColor;
+
+    &-content {
+        font: {
+            weight: 500;
+            size: 2rem;
+        }
+        margin: 0;
+    }
+}
+
+.active {
+    color: green;
+}
+
+.non-active {
+    color: hsl(0, 100%, 50%);
+}
+
+.hidden {
+    display: none;
+}
