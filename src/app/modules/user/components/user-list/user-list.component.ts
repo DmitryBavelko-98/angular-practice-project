@@ -1,25 +1,18 @@
-import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
-import { UserService } from '../../services/users-data.service';
-import { UserListItemComponent } from '../user-list-item/user-list-item.component';
+import { Component, Input, ViewChildren, QueryList } from '@angular/core';
 import IUser from '../../models/user';
+import { UserListItemComponent } from '../user-list-item/user-list-item.component';
 
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.scss'],
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent {
   @ViewChildren(UserListItemComponent) userItemComponents!: QueryList<UserListItemComponent>;
 
-  users: IUser[] = [];
+  @Input() users!: IUser[];
   isUsersActive: boolean = true;
   isUsersDeactivated: boolean = false;
-
-  constructor(private userService: UserService) {}
-
-  ngOnInit(): void {
-    this.users = this.userService.getUsers();
-  }
 
   toggleUsers() {
     this.isUsersActive = !this.isUsersActive;
