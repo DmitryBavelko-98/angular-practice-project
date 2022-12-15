@@ -1,0 +1,10 @@
+.users-list {
+    margin: 0 auto;
+    display: flex;
+    gap: 50px;
+    
+    &__btns {
+        display: flex;
+        gap: 20px;
+    }
+}
