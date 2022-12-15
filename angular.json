@@ -33,7 +33,7 @@
             ],
              "stylePreprocessorOptions": {
               "includePaths": [
-                "./src/styling"
+                "./src/styles"
               ]
             },
             "scripts": []
