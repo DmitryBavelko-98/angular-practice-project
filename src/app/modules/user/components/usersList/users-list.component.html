@@ -1,27 +1,19 @@
-<!-- <ng-container *ngFor="let user of users">
-    <mat-card *ngIf="user.isActivated || nonActiveUsers">
-
-    </mat-card>
-</ng-container> -->
-
 <div class="users-list">
-    <mat-card *ngFor="let user of users" [class.hidden]="!user.isActivated && !nonActiveUsers">
-        <div class="user-info">
-            <mat-card-content>{{ user.name }}</mat-card-content>
-            <mat-card-content>{{ user.age }}</mat-card-content>
-            <mat-card-content [ngClass]="{ 'non-active': !user.isActivated, 'active': user.isActivated }">
-                {{ user.isActivated ? 'Active' : 'Non-Active' }}
-            </mat-card-content>
-        </div>
-        <button mat-raised-button color="primary"
-                [disabled]="!user.isActivated" 
-                (click)="removeActivity(user.name)">
-            Deactivate  
-        </button>
-    </mat-card>
-    
+    <app-user-item 
+        *ngFor="let user of users" 
+        [userData]="user"
+        [class.hidden]="!user.isActivated && !nonActiveUsers"
+        (deactivateUser)="deactivateUser($event)"></app-user-item>
+</div>
+
+<div class="users-list__btns">
     <button mat-raised-button color="accent"
         (click)="toggleUsers()"> 
-        {{ nonActiveUsers ? hideMessage : showMessage }} 
+        {{ nonActiveUsers ? 'Hide non-active users' : 'Show non-active users' }} 
+    </button>
+    <button mat-raised-button color="warn"
+        (click)="deactivateAllUsers()"
+        [disabled]="usersDeactivated"> 
+        {{ nonActiveUsers ? 'Deactivate all users' : 'Activate all users' }} 
     </button>
 </div>
