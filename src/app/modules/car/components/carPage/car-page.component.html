@@ -5,3 +5,14 @@
     </mat-form-field>
     <div>{{ car }}</div>
 </div>
+
+<div class="car-content">
+    <app-car-list 
+        [cars]="cars"
+        (checkLikes)="checkLikedList($event)">
+    </app-car-list>
+
+    <app-liked-list>
+        <li *ngFor="let car of likedCars"><strong>Name:</strong> {{ car.name }} <strong>Number:</strong> {{ car.number }}</li>
+    </app-liked-list>
+</div>
