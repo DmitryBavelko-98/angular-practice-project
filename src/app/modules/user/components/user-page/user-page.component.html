@@ -1,1 +1,10 @@
-<app-user-list [users]="users"></app-user-list>
+<div class="user-content">
+    <app-user-list 
+        [users]="users"
+        (checkLikes)="checkLikedList($event)">
+    </app-user-list>
+
+    <app-liked-list>
+        <li *ngFor="let user of likedUsers"><strong>Name:</strong> {{ user.name }}  <strong>Age:</strong>  {{ user.age }}</li>
+    </app-liked-list>
+</div>
