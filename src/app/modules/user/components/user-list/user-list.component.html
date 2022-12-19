@@ -1,19 +1,18 @@
 <div class="users-list">
-    <app-user-list-item 
-        *ngFor="let user of users" 
-        [userData]="user"
-        [class.hidden]="!user.isActivated && !isUsersActive">
-    </app-user-list-item >
+    <app-list-item *ngFor="let user of users" [data]="user"
+        (checkLikeStatus)="checkLike($event)">
+        <span class="title">
+            {{ user.name }} <strong>{{ user.age }}</strong>
+        </span>
+
+        <img mat-card-image [src]="user.imageUrl" alt="User photo">
+
+        <div class="content">
+            <div>{{ user.gender ? 'male' : 'female' }}</div>
+            <div>{{ user.department }}</div>
+            <div>{{ user.company }}</div>
+        </div>
+    </app-list-item>
 </div>
 
-<div class="users-list__btns">
-    <button mat-raised-button color="accent"
-        (click)="toggleUsers()"> 
-        {{ isUsersActive ? 'Hide non-active users' : 'Show non-active users' }} 
-    </button>
-    <button mat-raised-button color="warn"
-        (click)="deactivateAllUsers()"
-        [disabled]="isUsersDeactivated"> 
-        {{ isUsersActive ? 'Deactivate all users' : 'Activate all users' }} 
-    </button>
-</div>
+

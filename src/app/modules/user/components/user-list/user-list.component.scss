@@ -1,7 +1,7 @@
 .users-list {
-    margin: 0 auto;
     display: flex;
     gap: 50px;
+    flex-wrap: wrap;
     
     &__btns {
         display: flex;
