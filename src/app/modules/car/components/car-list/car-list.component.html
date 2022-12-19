@@ -1,0 +1,15 @@
+<div class="car-list">
+    <app-list-item *ngFor="let car of cars" [data]="car"
+        (checkLikeStatus)="checkLike($event)" >
+        <span class="title">
+            {{ car.name }} <strong>{{ car.number }}</strong>
+        </span>
+
+        <img mat-card-image [src]="car.imageUrl" alt="Car photo">
+
+        <div class="content">
+            <div>{{ car.color | uppercase }}</div>
+            <div>{{ car.releaseYear }}</div>
+        </div>
+    </app-list-item>
+</div>
