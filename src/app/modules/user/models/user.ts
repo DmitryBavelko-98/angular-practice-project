@@ -1,5 +1,9 @@
 export default interface IUser {
-    name: string,
-    age: number,
-    isActivated: boolean
+    id: number;
+    name: string;
+    age: number;
+    gender: boolean;
+    department: string;
+    company: string;
+    imageUrl: string;
 }
