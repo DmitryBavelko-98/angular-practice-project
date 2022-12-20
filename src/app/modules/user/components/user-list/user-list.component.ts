@@ -8,6 +8,7 @@ import IUser from '../../models/user';
 })
 export class UserListComponent {
   @Input() users!: IUser[];
+  @Input() favoriteUsers!: number[];
   @Output() checkLikes = new EventEmitter<IUser>();
 
   checkLike(user: IUser) {

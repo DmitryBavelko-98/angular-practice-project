@@ -6,12 +6,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./list-item.component.scss']
 })
 export class ListItemComponent {
-  @Input() data!: any;
+  @Input() isItemLiked!: boolean;
   @Output() checkLikeStatus = new EventEmitter();
-  isItemLiked: boolean = false;
 
   likeItem() {
-    this.isItemLiked = !this.isItemLiked;
-    this.checkLikeStatus.emit(this.data);
+    this.checkLikeStatus.emit();
   }
 }

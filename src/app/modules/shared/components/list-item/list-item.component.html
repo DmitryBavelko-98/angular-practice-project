@@ -4,10 +4,12 @@
             <ng-content select=".title"></ng-content>
         </mat-card-title>
     </mat-card-header>
+
     <ng-content select="img"></ng-content>
     <mat-card-content>
         <ng-content select=".content"></ng-content>
     </mat-card-content>
+    
     <mat-card-actions>
         <button mat-icon-button (click)="likeItem()"
             [ngStyle]="{color: isItemLiked ? 'red' : 'grey'}" 

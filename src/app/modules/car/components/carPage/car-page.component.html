@@ -9,10 +9,14 @@
 <div class="car-content">
     <app-car-list 
         [cars]="cars"
+        [favoriteCars]="favoriteIds"
         (checkLikes)="checkLikedList($event)">
     </app-car-list>
 
     <app-liked-list>
-        <li *ngFor="let car of likedCars"><strong>Name:</strong> {{ car.name }} <strong>Number:</strong> {{ car.number }}</li>
+        <app-car-list 
+            [cars]="favoriteCars"
+            [favoriteCars]="favoriteIds">
+        </app-car-list>
     </app-liked-list>
 </div>

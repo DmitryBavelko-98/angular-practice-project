@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { LikeService } from 'src/app/modules/core/services/like.service';
+import { FavoritesService } from 'src/app/modules/core/services/favorites.service';
+import { FavoriteTypes } from 'src/app/modules/core/models/favorite-types';
 import ICar from '../../models/car';
 import { CarService } from '../../services/car.service';
 
@@ -11,19 +12,22 @@ import { CarService } from '../../services/car.service';
 export class CarPageComponent implements OnInit {
   car: string = '';
   cars: ICar[] = [];
-  likedCars: ICar[] = [];
+  favoriteIds: number[] = [];
+  favoriteCars: ICar[] = [];
 
   constructor(
     private carService: CarService,
-    private likeService: LikeService
+    private favoriteService: FavoritesService
   ) {}
 
   ngOnInit(): void {  
     this.cars = this.carService.getCars();
-    this.likedCars = this.likeService.getCars();
+    this.favoriteIds = this.favoriteService.getFavorites(FavoriteTypes.Car);
+    this.favoriteCars = this.carService.getLikedCars();
   }
 
   checkLikedList(car: any) {
-    this.likeService.addCar(car);
+    this.favoriteService.addToFavorites(FavoriteTypes.Car, car.id);
+    this.favoriteCars = this.carService.getLikedCars();
   }
 }

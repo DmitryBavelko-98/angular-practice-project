@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
-import { LikeService } from 'src/app/modules/core/services/like.service';
+import { FavoritesService } from 'src/app/modules/core/services/favorites.service';
+import { FavoriteTypes } from 'src/app/modules/core/models/favorite-types';
 import IUser from '../../models/user';
 
 @Component({
@@ -10,19 +11,22 @@ import IUser from '../../models/user';
 })
 export class UserPageComponent implements OnInit {
   users: IUser[] = [];
-  likedUsers: IUser[] = [];
+  favoriteIds: number[] = [];
+  favoriteUsers: IUser[] = [];
 
   constructor(
     private userService: UserService,
-    private likeService: LikeService
+    private favoriteService: FavoritesService
   ) {}
 
   ngOnInit(): void {
     this.users = this.userService.getUsers();
-    this.likedUsers = this.likeService.getUsers();
+    this.favoriteIds = this.favoriteService.getFavorites(FavoriteTypes.User);
+    this.favoriteUsers = this.userService.getLikedUsers();
   }
 
   checkLikedList(user: IUser) {
-    this.likeService.addUser(user);
+    this.favoriteService.addToFavorites(FavoriteTypes.User, user.id);
+    this.favoriteUsers = this.userService.getLikedUsers();
   }
 }
