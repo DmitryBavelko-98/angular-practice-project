@@ -1,20 +1,13 @@
 <div class="car-list">
 
     <ng-container *ngFor="let car of cars"> 
-        <app-list-item 
+
+        <app-car-list-item 
+            [car]="car"
             [isItemLiked]="favoriteCars.includes(car.id)"
-            (checkLikeStatus)="checkLike(car)" >
-            <span class="title">
-                {{ car.name }} <strong>{{ car.number }}</strong>
-            </span>
+            (isLiked)="checkLike(car)" >
+        </app-car-list-item>
 
-            <img mat-card-image [src]="car.imageUrl" alt="Car photo">
-
-            <div class="content">
-                <div>{{ car.color | uppercase }}</div>
-                <div>{{ car.releaseYear }}</div>
-            </div>
-        </app-list-item>
     </ng-container>
     
 </div>

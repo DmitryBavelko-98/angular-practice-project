@@ -2,7 +2,7 @@
     <app-user-list 
         [users]="users"
         [favoriteUsers]="favoriteIds"
-        (checkLikes)="checkLikedList($event)">
+        (isLiked)="likeItem($event)">
     </app-user-list>
 
     <app-liked-list>

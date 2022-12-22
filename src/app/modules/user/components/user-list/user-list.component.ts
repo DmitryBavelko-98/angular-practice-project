@@ -9,9 +9,9 @@ import IUser from '../../models/user';
 export class UserListComponent {
   @Input() users!: IUser[];
   @Input() favoriteUsers!: number[];
-  @Output() checkLikes = new EventEmitter<IUser>();
+  @Output() isLiked = new EventEmitter<IUser>();
 
-  checkLike(user: IUser) {
-    this.checkLikes.emit(user);
+  likeItem(user: IUser) {
+    this.isLiked.emit(user);
   }
 }

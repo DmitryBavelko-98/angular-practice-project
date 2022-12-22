@@ -9,9 +9,9 @@ import ICar from '../../models/car';
 export class CarListComponent {
   @Input() cars!: ICar[];
   @Input() favoriteCars!: number[];
-  @Output() checkLikes = new EventEmitter<ICar>();
+  @Output() isLiked = new EventEmitter<ICar>();
 
   checkLike(car: ICar) {
-    this.checkLikes.emit(car);
+    this.isLiked.emit(car);
   }
 }

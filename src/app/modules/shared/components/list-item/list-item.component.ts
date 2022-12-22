@@ -7,9 +7,9 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class ListItemComponent {
   @Input() isItemLiked!: boolean;
-  @Output() checkLikeStatus = new EventEmitter();
+  @Output() isLiked = new EventEmitter();
 
   likeItem() {
-    this.checkLikeStatus.emit();
+    this.isLiked.emit();
   }
 }

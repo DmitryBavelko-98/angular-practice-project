@@ -10,7 +10,6 @@ import { CarService } from '../../services/car.service';
   styleUrls: ['./car-page.component.scss'],
 })
 export class CarPageComponent implements OnInit {
-  car: string = '';
   cars: ICar[] = [];
   favoriteIds: number[] = [];
   favoriteCars: ICar[] = [];
@@ -26,7 +25,7 @@ export class CarPageComponent implements OnInit {
     this.favoriteCars = this.carService.getLikedCars();
   }
 
-  checkLikedList(car: any) {
+  checkLikedList(car: ICar) {
     this.favoriteService.addToFavorites(FavoriteTypes.Car, car.id);
     this.favoriteCars = this.carService.getLikedCars();
   }

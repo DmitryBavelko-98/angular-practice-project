@@ -25,7 +25,7 @@ export class UserPageComponent implements OnInit {
     this.favoriteUsers = this.userService.getLikedUsers();
   }
 
-  checkLikedList(user: IUser) {
+  likeItem(user: IUser) {
     this.favoriteService.addToFavorites(FavoriteTypes.User, user.id);
     this.favoriteUsers = this.userService.getLikedUsers();
   }

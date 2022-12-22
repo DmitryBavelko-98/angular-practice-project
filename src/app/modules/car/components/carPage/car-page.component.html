@@ -1,16 +1,8 @@
-<div class="car-form">
-    <mat-form-field appearance="outline">
-        <mat-label>My favourite car</mat-label>
-        <input matInput [(ngModel)]="car" placeholder="Type here...">
-    </mat-form-field>
-    <div>{{ car }}</div>
-</div>
-
 <div class="car-content">
     <app-car-list 
         [cars]="cars"
         [favoriteCars]="favoriteIds"
-        (checkLikes)="checkLikedList($event)">
+        (isLiked)="checkLikedList($event)">
     </app-car-list>
 
     <app-liked-list>

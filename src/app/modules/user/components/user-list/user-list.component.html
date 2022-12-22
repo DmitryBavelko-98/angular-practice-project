@@ -1,21 +1,13 @@
 <div class="users-list">
 
     <ng-container *ngFor="let user of users">
-        <app-list-item 
+
+        <app-user-list-item 
+            [user]="user"
             [isItemLiked]="favoriteUsers.includes(user.id)"
-            (checkLikeStatus)="checkLike(user)">
-            <span class="title">
-                {{ user.name }} <strong>{{ user.age }}</strong>
-            </span>
+            (isLiked)="likeItem(user)">
+        </app-user-list-item>
 
-            <img mat-card-image [src]="user.imageUrl" alt="User photo">
-
-            <div class="content">
-                <div>{{ user.gender ? 'male' : 'female' }}</div>
-                <div>{{ user.department }}</div>
-                <div>{{ user.company }}</div>
-            </div>
-        </app-list-item>
     </ng-container>
 
 </div>
