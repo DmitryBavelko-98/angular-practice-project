@@ -8,7 +8,6 @@ import { FavoriteTypes } from 'src/app/modules/core/models/favorite-types';
   providedIn: 'root'
 })
 export class UserService {
-
   constructor(private favoriteService: FavoritesService) {}
 
   getUsers(): IUser[] {
@@ -19,5 +18,13 @@ export class UserService {
     const likedIds = this.favoriteService.getFavorites(FavoriteTypes.User);
 
     return this.getUsers().filter(user => likedIds.includes(user.id));
+  }
+
+  addNewUser(user: IUser) {
+    USERS.push({
+      ...user,
+      id: USERS.length + 1,
+      imageUrl: 'assets/img/user/default_avatar.png',
+    });
   }
 }

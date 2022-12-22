@@ -1,9 +1,11 @@
 export default interface IUser {
     id: number;
-    name: string;
+    firstName: string;
+    lastName: string;
     age: number;
     gender: boolean;
     department: string;
     company: string;
+    email: string;
     imageUrl: string;
 }

@@ -1,0 +1,39 @@
+<form (submit)="submitUserData()" [formGroup]="userFormGroup">
+    
+    <h2>Add user</h2>
+    
+    <mat-form-field appearance="outline">
+        <mat-label>First name</mat-label>
+        <input formControlName="firstName" id="firstName" matInput placeholder="Type here">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Last name</mat-label>
+        <input formControlName="lastName" id="lastName" matInput placeholder="Type here">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Age</mat-label>
+        <input type="number" formControlName="age" id="age" matInput placeholder="Type here">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input type="email" formControlName="email" id="email" matInput placeholder="Type here">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Company</mat-label>
+        <input formControlName="company" id="company" matInput placeholder="Type here">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Department</mat-label>
+        <input formControlName="department" id="department" matInput placeholder="Type here">
+    </mat-form-field>
+    <div class="form-element">
+        <label for="gender">Gender:</label>
+        <mat-radio-group formControlName="gender" id="gender" aria-label="Select an option">
+            <mat-radio-button checked value="male">Male</mat-radio-button>
+            <mat-radio-button value="female">Female</mat-radio-button>
+        </mat-radio-group>
+    </div>
+    
+    <button mat-raised-button color="primary">Save user</button>
+
+</form>
