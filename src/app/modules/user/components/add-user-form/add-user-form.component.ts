@@ -1,13 +1,13 @@
-import { Component, Output, EventEmitter } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-add-user-form',
   templateUrl: './add-user-form.component.html',
   styleUrls: ['./add-user-form.component.scss'],
 })
-export class AddUserFormComponent {
-  @Output() addUser = new EventEmitter();
+export class AddUserFormComponent implements OnInit {
+  @Input() parentForm!: FormGroup
 
   constructor(private fb: FormBuilder) { }
 
@@ -18,10 +18,10 @@ export class AddUserFormComponent {
     email: [''],
     company: [''],
     department: [''],
-    gender: ['male']
+    gender: [true]
   });
 
-  submitUserData() {
-    this.addUser.emit(this.userFormGroup.value);
+  ngOnInit(): void {
+    this.parentForm.addControl('newUser', this.userFormGroup);
   }
 }

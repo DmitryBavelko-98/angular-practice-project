@@ -3,6 +3,7 @@ import IUser from '../models/user';
 import { USERS } from '../mocks/users';
 import { FavoritesService } from '../../core/services/favorites.service';
 import { FavoriteTypes } from 'src/app/modules/core/models/favorite-types';
+import IUserForm from '../models/user-form';
 
 @Injectable({
   providedIn: 'root'
@@ -20,11 +21,10 @@ export class UserService {
     return this.getUsers().filter(user => likedIds.includes(user.id));
   }
 
-  addNewUser(user: IUser) {
+  addNewUser(user: IUserForm): void {
     USERS.push({
-      ...user,
       id: USERS.length + 1,
-      imageUrl: 'assets/img/user/default_avatar.png',
+      ...user,
     });
   }
 }

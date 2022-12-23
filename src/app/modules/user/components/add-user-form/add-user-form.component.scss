@@ -1,34 +1,16 @@
-form {
-    background-color: #fff;
-    border-radius: 3px;
-    max-width: 25%;
-    margin: 0 auto;
-    padding: 20px;
+mat-form-field {
+    display: block;
+}
 
-    h2 {
-        text-align: center;
-        text-transform: uppercase;
-        font-weight: 500;
+div {
+    margin: 0 0 20px 0;
+
+    label {
+        width: 32%;
+        font-size: 1.5rem;
     }
 
-    mat-form-field {
-        display: block;
-    }
-
-    div {
-        margin: 0 0 20px 0;
-
-        label {
-            width: 32%;
-            font-size: 1.5rem;
-        }
-        mat-radio-button:first-child {
-            margin: 0 10px 0 0;
-        }
-    }
-
-    button {
-        display: block;
-        margin: 0 auto;
+    mat-radio-button:first-child {
+        margin: 0 10px 0 0;
     }
 }

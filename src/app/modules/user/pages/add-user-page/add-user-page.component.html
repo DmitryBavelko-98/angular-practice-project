@@ -1,0 +1,9 @@
+<form [formGroup]="form" (ngSubmit)="sendUserData()">
+
+    <app-add-user-form [parentForm]="form"></app-add-user-form>
+
+    <button 
+        mat-raised-button 
+        color="primary">Save user
+    </button>
+</form>

@@ -1,5 +1,4 @@
-<form (submit)="submitUserData()" [formGroup]="userFormGroup">
-    
+<ng-container [formGroup]="userFormGroup">
     <h2>Add user</h2>
     
     <mat-form-field appearance="outline">
@@ -29,11 +28,9 @@
     <div class="form-element">
         <label for="gender">Gender:</label>
         <mat-radio-group formControlName="gender" id="gender" aria-label="Select an option">
-            <mat-radio-button checked value="male">Male</mat-radio-button>
-            <mat-radio-button value="female">Female</mat-radio-button>
+            <mat-radio-button checked [value]="true">Male</mat-radio-button>
+            <mat-radio-button [value]="false">Female</mat-radio-button>
         </mat-radio-group>
     </div>
     
-    <button mat-raised-button color="primary">Save user</button>
-
-</form>
+</ng-container>
