@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ListItemComponent } from './components/list-item/list-item.component';
+import { CardComponent } from './components/card/card.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,7 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
-    ListItemComponent,
+    CardComponent,
     FavoritesListComponent
   ],
   imports: [
@@ -22,7 +22,7 @@ import { MatInputModule } from '@angular/material/input';
     MatInputModule
   ],
   exports: [
-    ListItemComponent,
+    CardComponent,
     FavoritesListComponent,
     MatButtonModule,
     MatIconModule,

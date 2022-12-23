@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CarPageComponent } from './components/carPage/car-page.component';
+import { CarPageComponent } from './pages/car-page/car-page.component';
 import { FormsModule } from '@angular/forms';
 import { CarListComponent } from './components/car-list/car-list.component';
 import { SharedModule } from '../shared/shared.module';

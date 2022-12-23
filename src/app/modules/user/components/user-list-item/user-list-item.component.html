@@ -1,11 +1,11 @@
-<app-list-item
+<app-card
     [isItemLiked]="isItemLiked"
     (isLiked)="likeItem()">
     <span class="title">
         {{ user.firstName }} {{ user.lastName }} <span>Age: <strong>{{ user.age }}</strong></span>
     </span>
     
-    <img mat-card-image [src]="user.imageUrl" alt="User photo">
+    <img mat-card-image [src]="user.imageUrl ? user.imageUrl : defaultImage" alt="User photo">
     
     <div class="content">
         <div>ID: {{ user.id }}</div>
@@ -14,4 +14,4 @@
         <div>Department: {{ user.department }}</div>
         <div>Email: {{ user.email }}</div>
     </div>
-</app-list-item>
+</app-card>
