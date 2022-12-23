@@ -1,11 +1,6 @@
-export default interface IUser {
+import IUserForm from "./user-form";
+
+export default interface IUser extends IUserForm {
     id: number;
-    firstName: string;
-    lastName: string;
-    age: number;
-    gender: boolean;
-    department: string;
-    company: string;
-    email: string;
-    imageUrl: string;
+    imageUrl?: string;
 }
