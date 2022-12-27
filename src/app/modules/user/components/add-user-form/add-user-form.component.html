@@ -1,36 +1,60 @@
 <ng-container [formGroup]="userFormGroup">
     <h2>Add user</h2>
     
-    <mat-form-field appearance="outline">
-        <mat-label>First name</mat-label>
-        <input formControlName="firstName" id="firstName" matInput placeholder="Type here">
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-        <mat-label>Last name</mat-label>
-        <input formControlName="lastName" id="lastName" matInput placeholder="Type here">
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-        <mat-label>Age</mat-label>
-        <input type="number" formControlName="age" id="age" matInput placeholder="Type here">
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-        <mat-label>Email</mat-label>
-        <input type="email" formControlName="email" id="email" matInput placeholder="Type here">
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-        <mat-label>Company</mat-label>
-        <input formControlName="company" id="company" matInput placeholder="Type here">
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-        <mat-label>Department</mat-label>
-        <input formControlName="department" id="department" matInput placeholder="Type here">
-    </mat-form-field>
-    <div class="form-element">
+    <div class="form-field">
+        <mat-form-field appearance="outline">
+            <mat-label>First name</mat-label>
+            <input formControlName="firstName" id="firstName" matInput placeholder="Type here">
+        </mat-form-field>
+        <app-validation-error [control]="getControl('firstName')" controlName="firstName"></app-validation-error>
+    </div>
+
+    <div class="form-field">
+        <mat-form-field appearance="outline">
+            <mat-label>Last name</mat-label>
+            <input formControlName="lastName" id="lastName" matInput placeholder="Type here">
+        </mat-form-field>
+        <app-validation-error [control]="getControl('lastName')" controlName="lastName"></app-validation-error>
+    </div>
+
+    <div class="form-field">
+        <mat-form-field appearance="outline">
+            <mat-label>Age</mat-label>
+            <input type="number" formControlName="age" id="age" matInput placeholder="Type here">
+        </mat-form-field>
+        <app-validation-error [control]="getControl('age')" controlName="age"></app-validation-error>
+    </div>
+
+    <div class="form-field">
+        <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input type="email" formControlName="email" id="email" matInput placeholder="Type here">
+        </mat-form-field>
+        <app-validation-error [control]="getControl('email')" controlName="email"></app-validation-error>
+    </div>
+
+    <div class="form-field">
+        <mat-form-field appearance="outline">
+            <mat-label>Company</mat-label>
+            <input formControlName="company" id="company" matInput placeholder="Type here">
+        </mat-form-field>
+        <app-validation-error [control]="getControl('company')" controlName="company"></app-validation-error>
+    </div>
+
+    <div class="form-field">
+        <mat-form-field appearance="outline">
+            <mat-label>Department</mat-label>
+            <input formControlName="department" id="department" matInput placeholder="Type here">
+        </mat-form-field>
+        <app-validation-error [control]="getControl('department')" controlName="department"></app-validation-error>
+    </div>
+
+    <div class="form-field">
         <label for="gender">Gender:</label>
         <mat-radio-group formControlName="gender" id="gender" aria-label="Select an option">
-            <mat-radio-button checked [value]="true">Male</mat-radio-button>
+            <mat-radio-button [value]="true">Male</mat-radio-button>
             <mat-radio-button [value]="false">Female</mat-radio-button>
         </mat-radio-group>
-    </div>
+    </div> 
     
 </ng-container>

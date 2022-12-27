@@ -7,26 +7,33 @@ import { MatIconModule } from '@angular/material/icon';
 import { FavoritesListComponent } from './components/favorites-list/favorites-list.component';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { EmailValidatorDirective } from './directives/email-validator.directive';
+import { ValidationErrorComponent } from './components/validation-error/validation-error.component';
+import { UniqueEmailValidatorDirective } from './directives/unique-email-validator.directive';
 
 
 @NgModule({
   declarations: [
     CardComponent,
-    FavoritesListComponent
+    FavoritesListComponent,
+    EmailValidatorDirective,
+    ValidationErrorComponent,
+    UniqueEmailValidatorDirective
   ],
   imports: [
     CommonModule,
     MatCardModule,
     MatButtonModule,
     MatIconModule,
-    MatInputModule
+    MatInputModule,
   ],
   exports: [
     CardComponent,
     FavoritesListComponent,
     MatButtonModule,
     MatIconModule,
-    MatInputModule
+    MatInputModule,
+    ValidationErrorComponent
   ],
   providers: [
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}}

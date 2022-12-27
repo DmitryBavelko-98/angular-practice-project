@@ -22,9 +22,14 @@ export class AddUserPageComponent implements OnInit {
   }
 
   sendUserData(): void {
-    this.userService.addNewUser(this.form.value.newUser);
+    if (this.form.invalid) {
+      Object.keys(this.form.controls)
+        .forEach(controlName => this.form.controls[controlName].markAllAsTouched());
+    } else {
+      this.userService.addNewUser(this.form.value.newUser);
 
-    this.router.navigate(['users']);
+      this.router.navigate(['users']);
+    }
   }
 }
 

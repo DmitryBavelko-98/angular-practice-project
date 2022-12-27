@@ -29,9 +29,3 @@ import { UserListItemComponent } from './components/user-list-item/user-list-ite
 })
 export class UserModule { }
 
-// refactor add-user-form - done
-// IUserForm и расширять в IUser - done 
-// ставить типы void - done
-// переименовать list-item в card - done
-// Default image
-// add pages - done

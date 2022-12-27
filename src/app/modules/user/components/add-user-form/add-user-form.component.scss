@@ -2,8 +2,25 @@ mat-form-field {
     display: block;
 }
 
-div {
-    margin: 0 0 20px 0;
+mat-error {
+    font-size: 13px;
+}
+
+h2 {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.form-field {
+    position: relative;
+    margin: 0 0 15px 0;
+
+    app-validation-error {
+        position: absolute;
+        top: 80%;
+        left: 1%;
+    }
 
     label {
         width: 32%;
@@ -13,4 +30,9 @@ div {
     mat-radio-button:first-child {
         margin: 0 10px 0 0;
     }
+}
+
+.pending {
+    background-color: red;
+    font-size: 60px;
 }
