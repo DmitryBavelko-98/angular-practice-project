@@ -4,7 +4,7 @@
 
         <app-user-list-item 
             [user]="user"
-            [isItemLiked]="favoriteUsers.includes(user.id)"
+            [isItemLiked]="favoriteUsers.includes(user)"
             (isLiked)="likeItem(user)">
         </app-user-list-item>
 

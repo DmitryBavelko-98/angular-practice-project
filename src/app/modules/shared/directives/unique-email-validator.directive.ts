@@ -1,5 +1,5 @@
 import { Directive } from '@angular/core';
-import { AsyncValidator, FormControl, NG_ASYNC_VALIDATORS, ValidationErrors } from '@angular/forms';
+import { AbstractControl, AsyncValidator, NG_ASYNC_VALIDATORS, ValidationErrors } from '@angular/forms';
 import { Observable, of, delay, map, catchError } from 'rxjs';
 import { USERS } from '../../user/mocks/users';
 
@@ -9,10 +9,10 @@ import { USERS } from '../../user/mocks/users';
 })
 export class UniqueEmailValidatorDirective implements AsyncValidator {
 
-  validate(control: FormControl): Observable<ValidationErrors> {
+  validate(control: AbstractControl): Observable<ValidationErrors> {
     return <Observable<ValidationErrors>>this.emailExists(control.value).pipe(
       map(res => (res ? {emailExists: true} : null)),
-      catchError(async (err) => console.log(err))
+      catchError(err => err)
     );
   }
 

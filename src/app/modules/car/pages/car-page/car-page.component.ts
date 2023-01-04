@@ -21,7 +21,6 @@ export class CarPageComponent implements OnInit {
 
   ngOnInit(): void {  
     this.cars = this.carService.getCars();
-    this.favoriteIds = this.favoriteService.getFavorites(FavoriteTypes.Car);
     this.favoriteCars = this.carService.getLikedCars();
   }
 

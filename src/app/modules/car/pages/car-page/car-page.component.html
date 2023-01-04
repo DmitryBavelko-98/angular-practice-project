@@ -1,14 +1,14 @@
 <div class="car-content">
     <app-car-list 
         [cars]="cars"
-        [favoriteCars]="favoriteIds"
+        [favoriteCars]="favoriteCars"
         (isLiked)="checkLikedList($event)">
     </app-car-list>
 
-    <app-liked-list>
+    <app-favorites-list>
         <app-car-list 
             [cars]="favoriteCars"
-            [favoriteCars]="favoriteIds">
+            [favoriteCars]="favoriteCars">
         </app-car-list>
-    </app-liked-list>
+    </app-favorites-list>
 </div>

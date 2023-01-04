@@ -8,7 +8,7 @@ import ICar from '../../models/car';
 })
 export class CarListComponent {
   @Input() cars!: ICar[];
-  @Input() favoriteCars!: number[];
+  @Input() favoriteCars!: ICar[];
   @Output() isLiked = new EventEmitter<ICar>();
 
   checkLike(car: ICar) {

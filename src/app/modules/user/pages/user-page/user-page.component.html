@@ -1,14 +1,14 @@
 <div class="user-content">
     <app-user-list 
         [users]="users"
-        [favoriteUsers]="favoriteIds"
+        [favoriteUsers]="favoriteUsers"
         (isLiked)="likeItem($event)">
     </app-user-list>
 
-    <app-liked-list>
+    <app-favorites-list>
         <app-user-list 
             [users]="favoriteUsers"
-            [favoriteUsers]="favoriteIds">
+            [favoriteUsers]="favoriteUsers">
         </app-user-list>
-    </app-liked-list>
+    </app-favorites-list>
 </div>

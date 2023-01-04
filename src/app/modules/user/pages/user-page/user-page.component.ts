@@ -21,11 +21,10 @@ export class UserPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.users = this.userService.getUsers();
-    this.favoriteIds = this.favoriteService.getFavorites(FavoriteTypes.User);
     this.favoriteUsers = this.userService.getLikedUsers();
   }
 
-  likeItem(user: IUser) {
+  likeItem(user: IUser): void {
     this.favoriteService.addToFavorites(FavoriteTypes.User, user.id);
     this.favoriteUsers = this.userService.getLikedUsers();
   }

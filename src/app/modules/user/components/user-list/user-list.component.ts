@@ -8,10 +8,10 @@ import IUser from '../../models/user';
 })
 export class UserListComponent {
   @Input() users!: IUser[];
-  @Input() favoriteUsers!: number[];
+  @Input() favoriteUsers!: IUser[];
   @Output() isLiked = new EventEmitter<IUser>();
 
-  likeItem(user: IUser) {
+  likeItem(user: IUser): void {    
     this.isLiked.emit(user);
   }
 }

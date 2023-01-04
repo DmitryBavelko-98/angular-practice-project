@@ -4,7 +4,7 @@
 
         <app-car-list-item 
             [car]="car"
-            [isItemLiked]="favoriteCars.includes(car.id)"
+            [isItemLiked]="favoriteCars.includes(car)"
             (isLiked)="checkLike(car)" >
         </app-car-list-item>
 

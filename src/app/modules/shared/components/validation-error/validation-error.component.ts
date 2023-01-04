@@ -15,30 +15,33 @@ export class ValidationErrorComponent {
   showValidationMessage(): string {
     const errors: ValidationErrors = <ValidationErrors>this.control?.errors;
 
-    if (errors.hasOwnProperty('required')) {
-      this.message = 'Field must not be empty';
+    switch(this.control?.invalid) {
+      case errors.hasOwnProperty('required'): 
+        this.message = 'Field must not be empty';
+        break;
+      case errors.hasOwnProperty('min'): 
+        this.message = `Value should be ${errors!['min'].min} or more`;
+        break;
+      case errors.hasOwnProperty('max'): 
+        this.message = `Value should be ${errors!['max'].max} or less`;
+        break;
+      case errors.hasOwnProperty('minlength'): 
+        this.message = `Field must contain at least ${errors!['minlength'].requiredLength} characters`;
+        break;
+      case errors.hasOwnProperty('maxlength'): 
+        this.message = `Field must contain no more than ${errors!['maxlength'].requiredLength} characters`;
+        break;
+      case errors.hasOwnProperty('email'): 
+        this.message = 'Wrong email format';
+        break;
+      case errors.hasOwnProperty('gmail'): 
+        this.message = 'Email should end with @gmail.com';
+        break;
+      case errors.hasOwnProperty('emailExists'): 
+        this.message = 'User with this email already exists';
+        break;
+      default: this.message = 'Field is invalid';
     }
-    if (errors.hasOwnProperty('min')) {
-      this.message = `Value should be ${errors!['min'].min} or more`;
-    }  
-    if (errors.hasOwnProperty('max')) {
-      this.message = `Value should be ${errors!['max'].max} or less`;
-    } 
-    if (errors.hasOwnProperty('minlength')) {
-      this.message = `Field must contain at least ${errors!['minlength'].requiredLength} characters`;
-    } 
-    if (errors.hasOwnProperty('maxlength')) {
-      this.message = `Field must contain no more than ${errors!['maxlength'].requiredLength} characters`;
-    } 
-    if (errors.hasOwnProperty('email')) {
-      this.message = `Wrong email format`;
-    } 
-    if (errors.hasOwnProperty('domen')) {
-      this.message = `Email should end with @gmail.com`;
-    } 
-    if (errors.hasOwnProperty('emailExists')) {
-      this.message = `User with this email already exists`;
-    } 
 
     return this.message; 
   }

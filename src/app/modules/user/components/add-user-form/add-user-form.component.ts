@@ -1,20 +1,19 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { EmailValidatorDirective } from 'src/app/modules/shared/directives/email-validator.directive';
+import { GmailValidatorDirective } from 'src/app/modules/shared/directives/gmail-validator.directive';
 import { UniqueEmailValidatorDirective } from 'src/app/modules/shared/directives/unique-email-validator.directive';
 
 @Component({
   selector: 'app-add-user-form',
   templateUrl: './add-user-form.component.html',
   styleUrls: ['./add-user-form.component.scss'],
-  providers: [EmailValidatorDirective, UniqueEmailValidatorDirective]
 })
 export class AddUserFormComponent implements OnInit {
-  @Input() parentForm!: FormGroup
+  @Input() parentForm!: FormGroup;
 
   constructor(
     private fb: FormBuilder,
-    private emailValidator: EmailValidatorDirective,
+    private gmailValidator: GmailValidatorDirective,
     private uniqueEmailValidator: UniqueEmailValidatorDirective
   ) { }
 
@@ -22,10 +21,15 @@ export class AddUserFormComponent implements OnInit {
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
     age: ['15', [Validators.required, Validators.min(15), Validators.max(100)]],
-    email: ['', [Validators.required, Validators.email, this.emailValidator], [this.uniqueEmailValidator]],
+    email: ['', {
+      validators: [Validators.required, Validators.email, this.gmailValidator],
+      asyncValidators: [this.uniqueEmailValidator],
+      updateOn: 'blur'
+    }],
     company: ['', Validators.maxLength(35)],
     department: ['', Validators.minLength(6)],
-    gender: [true, Validators.required]
+    gender: [true, Validators.required],
+    avatar: [''],
   });
 
   ngOnInit(): void {

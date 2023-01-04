@@ -25,7 +25,7 @@ export class AddUserPageComponent implements OnInit {
     if (this.form.invalid) {
       Object.keys(this.form.controls)
         .forEach(controlName => this.form.controls[controlName].markAllAsTouched());
-    } else {
+    } else if (this.form.valid) {
       this.userService.addNewUser(this.form.value.newUser);
 
       this.router.navigate(['users']);

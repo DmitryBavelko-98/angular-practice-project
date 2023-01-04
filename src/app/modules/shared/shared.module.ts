@@ -7,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { FavoritesListComponent } from './components/favorites-list/favorites-list.component';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { EmailValidatorDirective } from './directives/email-validator.directive';
+import { GmailValidatorDirective } from './directives/gmail-validator.directive';
 import { ValidationErrorComponent } from './components/validation-error/validation-error.component';
 import { UniqueEmailValidatorDirective } from './directives/unique-email-validator.directive';
 
@@ -16,7 +16,7 @@ import { UniqueEmailValidatorDirective } from './directives/unique-email-validat
   declarations: [
     CardComponent,
     FavoritesListComponent,
-    EmailValidatorDirective,
+    GmailValidatorDirective,
     ValidationErrorComponent,
     UniqueEmailValidatorDirective
   ],
@@ -33,10 +33,12 @@ import { UniqueEmailValidatorDirective } from './directives/unique-email-validat
     MatButtonModule,
     MatIconModule,
     MatInputModule,
-    ValidationErrorComponent
+    ValidationErrorComponent,
   ],
   providers: [
-    {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}}
+    {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}},
+    GmailValidatorDirective,
+    UniqueEmailValidatorDirective
   ]
 })
 export class SharedModule { }
