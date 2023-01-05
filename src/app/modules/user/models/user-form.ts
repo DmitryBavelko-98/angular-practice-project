@@ -6,4 +6,5 @@ export default interface IUserForm {
     department: string;
     company: string;
     email: string;
+    imageUrl?: string;
 }

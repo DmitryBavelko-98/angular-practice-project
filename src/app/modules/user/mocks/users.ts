@@ -53,6 +53,6 @@ export const USERS: IUser[] = [
       department: 'sales',
       company: 'BMW',
       email:"Max@gmail.com",
-      imageUrl: 'assets/img/user/avatar_m.png'
+      imageUrl: 'assets/img/user/avatar_african.png'
   },
 ];

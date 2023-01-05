@@ -10,6 +10,7 @@ import { UniqueEmailValidatorDirective } from 'src/app/modules/shared/directives
 })
 export class AddUserFormComponent implements OnInit {
   @Input() parentForm!: FormGroup;
+  imageName!: string;
 
   constructor(
     private fb: FormBuilder,
@@ -29,11 +30,25 @@ export class AddUserFormComponent implements OnInit {
     company: ['', Validators.maxLength(35)],
     department: ['', Validators.minLength(6)],
     gender: [true, Validators.required],
-    avatar: [''],
+    imageUrl: [''],
   });
 
   ngOnInit(): void {
     this.parentForm.addControl('newUser', this.userFormGroup);
+  }
+
+  setImageUrl(event: any): void {
+    if (event.target.files && event.target.files[0]) {
+      this.imageName = event.target.files[0].name;
+      
+      const reader = new FileReader();
+  
+      reader.onload = (event: ProgressEvent) => {
+        this.userFormGroup.patchValue({imageUrl: (<FileReader>event.target).result as string});
+      }
+  
+      reader.readAsDataURL(event.target.files[0]);
+    }
   }
 
   getControl(controlName: string): FormControl {

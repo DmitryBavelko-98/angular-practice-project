@@ -49,6 +49,11 @@
         <app-validation-error [control]="getControl('department')" controlName="department"></app-validation-error>
     </div>
 
+    <div class="form-field form-field-image">
+        <label for="imageUrl">{{imageName || 'Upload photo'}}</label>
+        <input #image type="file" id="imageUrl" (change)="setImageUrl($event)">
+    </div>
+
     <div class="form-field">
         <label for="gender">Gender:</label>
         <mat-radio-group formControlName="gender" id="gender" aria-label="Select an option">
