@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
-import { Router } from '@angular/router';
+import { Event, Router } from '@angular/router';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
@@ -21,12 +21,15 @@ export class AddUserPageComponent implements OnInit {
     this.form = this.fb.group({});
   }
 
+  addFormControl(event: FormGroup, key: string): void {
+    this.form.addControl(key, event);
+  }
+
   sendUserData(): void {
-    if (this.form.invalid) {
-      Object.keys(this.form.controls)
-        .forEach(controlName => this.form.controls[controlName].markAllAsTouched());
-    } else if (this.form.valid) {
-      this.userService.addNewUser(this.form.value.newUser);
+    this.form.markAllAsTouched();
+    
+    if (this.form.valid) {
+      this.userService.addNewUser(this.form.value.user);
 
       this.router.navigate(['users']);
     }

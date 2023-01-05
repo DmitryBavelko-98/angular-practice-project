@@ -1,9 +1,9 @@
-<form [formGroup]="form">
-    <app-add-user-form [parentForm]="form"></app-add-user-form>
+<form [formGroup]="form" (submit)="sendUserData()">
+    <h2>Add user</h2>
+    <app-add-user-form (formReady)="addFormControl($event, 'user')"></app-add-user-form>
 
     <button 
-        (click)="sendUserData()"
         mat-raised-button 
-        color="primary">Save user
-    </button>
+        color="primary">
+    Save user</button>
 </form>

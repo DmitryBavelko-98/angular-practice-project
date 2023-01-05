@@ -1,12 +1,11 @@
 <ng-container [formGroup]="userFormGroup">
-    <h2>Add user</h2>
     
     <div class="form-field">
         <mat-form-field appearance="outline">
             <mat-label>First name</mat-label>
             <input formControlName="firstName" id="firstName" matInput placeholder="Type here">
         </mat-form-field>
-        <app-validation-error [control]="getControl('firstName')" controlName="firstName"></app-validation-error>
+        <app-validation-error [control]="getControl('firstName')" controlName="Firstname"></app-validation-error>
     </div>
 
     <div class="form-field">
@@ -14,7 +13,7 @@
             <mat-label>Last name</mat-label>
             <input formControlName="lastName" id="lastName" matInput placeholder="Type here">
         </mat-form-field>
-        <app-validation-error [control]="getControl('lastName')" controlName="lastName"></app-validation-error>
+        <app-validation-error [control]="getControl('lastName')" controlName="Lastname"></app-validation-error>
     </div>
 
     <div class="form-field">
@@ -22,7 +21,7 @@
             <mat-label>Age</mat-label>
             <input type="number" formControlName="age" id="age" matInput placeholder="Type here">
         </mat-form-field>
-        <app-validation-error [control]="getControl('age')" controlName="age"></app-validation-error>
+        <app-validation-error [control]="getControl('age')" controlName="Age"></app-validation-error>
     </div>
 
     <div class="form-field email-form-field">
@@ -30,7 +29,7 @@
             <mat-label>Email</mat-label>
             <input type="email" formControlName="email" id="email" matInput placeholder="Type here">
         </mat-form-field>
-        <app-validation-error [control]="getControl('email')" controlName="email"></app-validation-error>
+        <app-validation-error [control]="getControl('email')" controlName="Email"></app-validation-error>
     </div>
 
     <div class="form-field">
@@ -38,7 +37,7 @@
             <mat-label>Company</mat-label>
             <input formControlName="company" id="company" matInput placeholder="Type here">
         </mat-form-field>
-        <app-validation-error [control]="getControl('company')" controlName="company"></app-validation-error>
+        <app-validation-error [control]="getControl('company')" controlName="Company"></app-validation-error>
     </div>
 
     <div class="form-field">
@@ -46,12 +45,12 @@
             <mat-label>Department</mat-label>
             <input formControlName="department" id="department" matInput placeholder="Type here">
         </mat-form-field>
-        <app-validation-error [control]="getControl('department')" controlName="department"></app-validation-error>
+        <app-validation-error [control]="getControl('department')" controlName="Department"></app-validation-error>
     </div>
 
     <div class="form-field form-field-image">
         <label for="imageUrl">{{imageName || 'Upload photo'}}</label>
-        <input #image type="file" id="imageUrl" (change)="setImageUrl($event)">
+        <input type="file" id="imageUrl" (change)="setImageUrl($event)">
     </div>
 
     <div class="form-field">

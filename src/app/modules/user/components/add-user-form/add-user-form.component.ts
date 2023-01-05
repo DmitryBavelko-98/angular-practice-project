@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { GmailValidatorDirective } from 'src/app/modules/shared/directives/gmail-validator.directive';
 import { UniqueEmailValidatorDirective } from 'src/app/modules/shared/directives/unique-email-validator.directive';
@@ -9,7 +9,7 @@ import { UniqueEmailValidatorDirective } from 'src/app/modules/shared/directives
   styleUrls: ['./add-user-form.component.scss'],
 })
 export class AddUserFormComponent implements OnInit {
-  @Input() parentForm!: FormGroup;
+  @Output() formReady = new EventEmitter<FormGroup>();
   imageName!: string;
 
   constructor(
@@ -34,20 +34,29 @@ export class AddUserFormComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.parentForm.addControl('newUser', this.userFormGroup);
+    this.formReady.emit(this.userFormGroup);
   }
-
-  setImageUrl(event: any): void {
-    if (event.target.files && event.target.files[0]) {
-      this.imageName = event.target.files[0].name;
-      
-      const reader = new FileReader();
   
+  setImageUrl(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    const files = target.files as FileList;
+
+    if (files && files[0]) {
+      const type = files[0].type;
+      const reader = new FileReader();
+
+      if (!type.match('image/')) {
+        this.imageName = 'Only images allowed';
+        return;
+      }
+
+      this.imageName = files[0].name;
+        
       reader.onload = (event: ProgressEvent) => {
-        this.userFormGroup.patchValue({imageUrl: (<FileReader>event.target).result as string});
+        this.userFormGroup.get('imageUrl')?.setValue((<FileReader>event.target).result as string);
       }
   
-      reader.readAsDataURL(event.target.files[0]);
+      reader.readAsDataURL(files[0]);
     }
   }
 
