@@ -1,3 +1,5 @@
+import { address } from "./address";
+
 export default interface IUserForm {
     firstName: string;
     lastName: string;
@@ -6,5 +8,6 @@ export default interface IUserForm {
     department: string;
     company: string;
     email: string;
+    addresses: address[];
     imageUrl?: string;
 }

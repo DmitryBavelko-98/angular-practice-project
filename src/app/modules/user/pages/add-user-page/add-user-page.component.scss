@@ -1,7 +1,7 @@
 form {
     background-color: #fff;
     border-radius: 3px;
-    max-width: 30%;
+    max-width: 75%;
     margin: 0 auto;
     padding: 20px;
 
@@ -11,6 +11,13 @@ form {
         font-weight: 500;
     }
 
+    .forms {
+        display: flex;
+        gap: 50px;
+        .user-info {
+            flex: 1 1 auto;
+        }
+    }
 
     button {
         display: block;

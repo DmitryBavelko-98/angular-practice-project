@@ -1,0 +1,47 @@
+<ng-container [formGroup]="addressesFormGroup">
+
+    <div class="address-form" formArrayName="addresses" *ngFor="let address of addresses.controls; let i = index">
+
+        <div class="form-row" formGroupName="{{i}}">
+
+            <div class="form-field">
+                <mat-form-field appearance="outline">
+                    <mat-label>Address</mat-label>
+                    <textarea formControlName="addressLine" id="addressLine" matInput placeholder="Type here"></textarea>
+                </mat-form-field>
+                <app-validation-error [control]="getArrayControl(i, 'addressLine')" controlName="Address"></app-validation-error>
+            </div>
+
+            <div class="form-field">
+                <mat-form-field appearance="outline">
+                    <mat-label>City</mat-label>
+                    <input (change)="checkZipDisability(i)" formControlName="city" id="city" matInput placeholder="Type here">
+                </mat-form-field>
+                <app-validation-error [control]="getArrayControl(i, 'city')" controlName="City"></app-validation-error>
+            </div>
+
+            <div class="form-field">
+                <mat-form-field appearance="outline">
+                    <mat-label>ZIP</mat-label>
+                    <input formControlName="zip" id="zip" matInput placeholder="Type here">
+                </mat-form-field>
+                <app-validation-error [control]="getArrayControl(i, 'zip')" controlName="ZIP code"></app-validation-error>
+            </div>
+
+            <mat-icon class="delete-btn" (click)="removeAddress(i)">delete_forever</mat-icon>
+        </div>
+
+        <div class="address-error" [hidden]="isAddresRemovable">You should have at least one address!</div>
+
+    </div>
+
+    <button
+        type="button"
+        class="add-btn" 
+        color="primary" 
+        mat-mini-fab 
+        (click)="addAddress()">
+        <mat-icon class="add-course-btn">add</mat-icon>
+    </button>  
+
+</ng-container>

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { GmailValidatorDirective } from 'src/app/modules/shared/directives/gmail-validator.directive';
 import { UniqueEmailValidatorDirective } from 'src/app/modules/shared/directives/unique-email-validator.directive';
@@ -40,6 +40,8 @@ export class AddUserFormComponent implements OnInit {
   setImageUrl(event: Event): void {
     const target = event.target as HTMLInputElement;
     const files = target.files as FileList;
+
+    console.log(this.imageName);
 
     if (files && files[0]) {
       const type = files[0].type;

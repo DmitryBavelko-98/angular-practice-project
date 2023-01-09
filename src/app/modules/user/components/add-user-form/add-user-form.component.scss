@@ -1,11 +1,7 @@
+@import 'variables';
+
 mat-error {
     font-size: 13px;
-}
-
-h2 {
-    text-align: center;
-    text-transform: uppercase;
-    font-weight: 500;
 }
 
 .form-field {
@@ -48,6 +44,17 @@ h2 {
             color: #09B9B9;
             width: 100%;
         }
+    }
+}
+
+.invalid {
+    background-color: $errorFieldBackgroundColor;
+    border-color: $errorFieldColor;
+    &:hover {
+        background-color: $errorFieldBackgroundColor;
+    }
+    label {
+        color: $errorFieldColor;
     }
 }
 

@@ -29,7 +29,9 @@ export class AddUserPageComponent implements OnInit {
     this.form.markAllAsTouched();
     
     if (this.form.valid) {
-      this.userService.addNewUser(this.form.value.user);
+      const userData = {...this.form.value.user, ...this.form.value.addresses};
+
+      this.userService.addNewUser(userData);
 
       this.router.navigate(['users']);
     }

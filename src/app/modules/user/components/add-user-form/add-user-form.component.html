@@ -48,9 +48,9 @@
         <app-validation-error [control]="getControl('department')" controlName="Department"></app-validation-error>
     </div>
 
-    <div class="form-field form-field-image">
+    <div class="form-field form-field-image" [ngClass]="{invalid: imageName === 'Only images allowed'}">
         <label for="imageUrl">{{imageName || 'Upload photo'}}</label>
-        <input type="file" id="imageUrl" (change)="setImageUrl($event)">
+        <input #image type="file" id="imageUrl" (change)="setImageUrl($event)">
     </div>
 
     <div class="form-field">

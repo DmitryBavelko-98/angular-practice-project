@@ -10,7 +10,8 @@ export const USERS: IUser[] = [
       department: 'marketing',
       company: 'Google',
       email:"Kate@gmail.com",
-      imageUrl: 'assets/img/user/avatar_f.png'
+      imageUrl: 'assets/img/user/avatar_f.png',
+      addresses: []
   },
   {
       id: 2,
@@ -20,7 +21,8 @@ export const USERS: IUser[] = [
       gender: true,
       department: 'front end',
       company: 'Coherent', email:"Dima@gmail.com",
-      imageUrl: 'assets/img/user/avatar_m.png'
+      imageUrl: 'assets/img/user/avatar_m.png',
+      addresses: []
   },
   {
       id: 3,
@@ -31,7 +33,8 @@ export const USERS: IUser[] = [
       department: 'CEO',
       company: 'Tesla',
       email:"Elon@gmail.com",
-      imageUrl: 'assets/img/user/musk.png'
+      imageUrl: 'assets/img/user/musk.png',
+      addresses: []
   },
   {
       id: 4,
@@ -43,6 +46,7 @@ export const USERS: IUser[] = [
       company: 'Google',
       email:"Anna@gmail.com",
       imageUrl: 'assets/img/user/girl.jpg',
+      addresses: [],
   },
   {
       id: 5,
@@ -53,6 +57,7 @@ export const USERS: IUser[] = [
       department: 'sales',
       company: 'BMW',
       email:"Max@gmail.com",
-      imageUrl: 'assets/img/user/avatar_african.png'
+      imageUrl: 'assets/img/user/avatar_african.png',
+      addresses: []
   },
 ];

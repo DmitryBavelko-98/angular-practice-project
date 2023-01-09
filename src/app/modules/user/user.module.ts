@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
 import { AddUserFormComponent } from './components/add-user-form/add-user-form.component';
 import { UserListItemComponent } from './components/user-list-item/user-list-item.component';
+import { AddUserAddressesComponent } from './components/add-user-addresses/add-user-addresses.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { UserListItemComponent } from './components/user-list-item/user-list-ite
     AddUserPageComponent,
     AddUserFormComponent,
     UserListItemComponent,
+    AddUserAddressesComponent,
   ],
   imports: [
     CommonModule,

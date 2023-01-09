@@ -1,6 +1,15 @@
 <form [formGroup]="form" (submit)="sendUserData()">
-    <h2>Add user</h2>
-    <app-add-user-form (formReady)="addFormControl($event, 'user')"></app-add-user-form>
+    <div class="forms">
+        <div class="user-info">
+            <h2>User info</h2>
+            <app-add-user-form (formReady)="addFormControl($event, 'user')"></app-add-user-form>
+        </div>
+
+        <div class="user-addresses">
+            <h2>Addresses</h2>
+            <app-add-user-addresses (formReady)="addFormControl($event, 'addresses')"></app-add-user-addresses>
+        </div>
+    </div>
 
     <button 
         mat-raised-button 
