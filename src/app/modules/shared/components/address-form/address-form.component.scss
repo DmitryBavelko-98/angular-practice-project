@@ -1,0 +1,31 @@
+.form-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    textarea {
+        resize: none; 
+        height: 17px;
+    }
+
+}
+
+.form-field {
+    position: relative;
+    margin: 0 0 15px 0;
+    width: 150px;
+
+    app-validation-error {
+        position: absolute;
+        top: 80%;
+        left: 1%;
+    }
+
+    .mat-form-field {
+        display: block;
+    } 
+
+    &__text {
+        width: 300px;
+    }
+}    

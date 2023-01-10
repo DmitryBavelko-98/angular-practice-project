@@ -1,1 +1,1 @@
-export type address = { addressLine: string, city: string, zip?: string };
+export type Address = { addressLine: string, city: string, zip?: string };

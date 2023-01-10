@@ -10,7 +10,9 @@ import { MatInputModule } from '@angular/material/input';
 import { GmailValidatorDirective } from './directives/gmail-validator.directive';
 import { ValidationErrorComponent } from './components/validation-error/validation-error.component';
 import { UniqueEmailValidatorDirective } from './directives/unique-email-validator.directive';
-
+import { AddressFormComponent } from './components/address-form/address-form.component';
+import { AddressesListComponent } from './components/addresses-list/addresses-list.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { UniqueEmailValidatorDirective } from './directives/unique-email-validat
     FavoritesListComponent,
     GmailValidatorDirective,
     ValidationErrorComponent,
-    UniqueEmailValidatorDirective
+    UniqueEmailValidatorDirective,
+    AddressesListComponent,
+    AddressFormComponent
   ],
   imports: [
     CommonModule,
@@ -26,6 +30,7 @@ import { UniqueEmailValidatorDirective } from './directives/unique-email-validat
     MatButtonModule,
     MatIconModule,
     MatInputModule,
+    ReactiveFormsModule,
   ],
   exports: [
     CardComponent,
@@ -34,6 +39,9 @@ import { UniqueEmailValidatorDirective } from './directives/unique-email-validat
     MatIconModule,
     MatInputModule,
     ValidationErrorComponent,
+    AddressesListComponent,
+    AddressFormComponent,
+    ReactiveFormsModule,
   ],
   providers: [
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}},

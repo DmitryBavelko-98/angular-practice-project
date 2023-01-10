@@ -4,11 +4,9 @@ import { UserPageComponent } from './pages/user-page/user-page.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { SharedModule } from '../shared/shared.module';
 import { AddUserPageComponent } from './pages/add-user-page/add-user-page.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
 import { AddUserFormComponent } from './components/add-user-form/add-user-form.component';
 import { UserListItemComponent } from './components/user-list-item/user-list-item.component';
-import { AddUserAddressesComponent } from './components/add-user-addresses/add-user-addresses.component';
 
 @NgModule({
   declarations: [
@@ -17,12 +15,10 @@ import { AddUserAddressesComponent } from './components/add-user-addresses/add-u
     AddUserPageComponent,
     AddUserFormComponent,
     UserListItemComponent,
-    AddUserAddressesComponent,
   ],
   imports: [
     CommonModule,
     SharedModule,
-    ReactiveFormsModule,
     MatRadioModule,
   ],
   exports: [

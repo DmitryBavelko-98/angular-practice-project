@@ -2,11 +2,11 @@ import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormArray, Validators, FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-add-user-addresses',
-  templateUrl: './add-user-addresses.component.html',
-  styleUrls: ['./add-user-addresses.component.scss'],
+  selector: 'app-addresses-list',
+  templateUrl: './addresses-list.component.html',
+  styleUrls: ['./addresses-list.component.scss'],
 })
-export class AddUserAddressesComponent implements OnInit {
+export class AddressesListComponent implements OnInit {
   @Output() formReady = new EventEmitter<FormGroup>();
   isAddresRemovable = false;
 
@@ -36,6 +36,15 @@ export class AddUserAddressesComponent implements OnInit {
       zip: [{value: '', disabled: true}, Validators.required]
     });
 
+    addressForm.get('city')?.valueChanges.subscribe(value => {
+      if (value) {
+        addressForm.get('zip')?.enable();
+        return;
+      }
+  
+      addressForm.get('zip')?.disable();
+    });
+
     this.addresses.push(addressForm);
 
     this.isAddresRemovable = true;
@@ -48,14 +57,5 @@ export class AddUserAddressesComponent implements OnInit {
     } 
 
     this.addresses.removeAt(index);              
-  }
-
-  checkZipDisability(index: number): void {
-    if (this.addresses.at(index).get('city')?.value) {
-      this.addresses.at(index).get('zip')?.enable();
-      return;
-    }
-
-    this.addresses.at(index).get('zip')?.disable();
   }
 }
