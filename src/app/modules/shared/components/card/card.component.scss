@@ -1,7 +1,11 @@
 @import 'variables';
 
 mat-card {
-    width: 300px;
+    width: 400px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;	
 
     &-title, &-content {
         color: $primaryFontColor;
@@ -19,7 +23,7 @@ mat-card {
     img {
         display: block;
         max-width: 100%;
-        height: 200px;
+        height: 250px;
         margin: 0 auto 20px;
         background-size: cover;
     }
@@ -27,4 +31,10 @@ mat-card {
     .content div {
         margin: 0 0 10px 0;
     }
+}
+
+mat-card-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }

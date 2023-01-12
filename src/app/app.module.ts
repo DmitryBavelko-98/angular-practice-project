@@ -6,7 +6,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserModule } from './modules/user/user.module';
 import { CarModule } from './modules/car/car.module';
 import { CoreModule } from './modules/core/core.module';
-import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [

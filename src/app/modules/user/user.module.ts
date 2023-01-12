@@ -5,21 +5,27 @@ import { UserListComponent } from './components/user-list/user-list.component';
 import { SharedModule } from '../shared/shared.module';
 import { AddUserPageComponent } from './pages/add-user-page/add-user-page.component';
 import { MatRadioModule } from '@angular/material/radio';
-import { AddUserFormComponent } from './components/add-user-form/add-user-form.component';
+import { UserInfoFormComponent } from './components/user-info-form/user-info-form.component';
 import { UserListItemComponent } from './components/user-list-item/user-list-item.component';
+import { EditUserPageComponent } from './pages/edit-user-page/edit-user-page.component';
+import { CoreModule } from '../core/core.module';
+import { UserFormComponent } from './components/user-form/user-form.component';
 
 @NgModule({
   declarations: [
     UserPageComponent,
     UserListComponent,
     AddUserPageComponent,
-    AddUserFormComponent,
+    UserInfoFormComponent,
     UserListItemComponent,
+    EditUserPageComponent,
+    UserFormComponent,
   ],
   imports: [
     CommonModule,
     SharedModule,
     MatRadioModule,
+    CoreModule
   ],
   exports: [
     UserPageComponent,

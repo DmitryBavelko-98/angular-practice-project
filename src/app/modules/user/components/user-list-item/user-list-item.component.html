@@ -13,5 +13,14 @@
         <div>Company: {{ user.company }}</div>
         <div>Department: {{ user.department }}</div>
         <div>Email: {{ user.email }}</div>
+        <div>Addresses:</div>
+        <div *ngFor="let address of user.addresses; let i = index">
+            <div>{{i + 1}}. Address: {{address.addressLine}}</div>
+            <div *ngIf="address.city">City: {{address.city}} ZIP: {{address.zip}}</div>              
+        </div>
     </div>
+
+    <a class="edit-icon" [routerLink]="['edit-user', user.id]">
+        <mat-icon>edit</mat-icon>
+    </a>
 </app-card>

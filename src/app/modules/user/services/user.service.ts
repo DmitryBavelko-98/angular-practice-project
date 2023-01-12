@@ -21,10 +21,20 @@ export class UserService {
     return this.getUsers().filter(user => likedIds.includes(user.id));
   }
 
+  getUserById(id: number): IUser {
+    return this.getUsers().find(user => user.id === id) as IUser;
+  }
+
   addNewUser(user: IUserForm): void {
     USERS.push({
       id: USERS.length + 1,
       ...user,
     });
+  }
+
+  updateUser(userData: IUser): void {
+   const userIndex = USERS.findIndex(user => user.id === userData.id);
+
+   USERS[userIndex] = userData;
   }
 }

@@ -13,6 +13,7 @@ import { AppRoutingModule } from '../../app-routing.module';
   ],
   exports: [
     HeaderComponent,
+    AppRoutingModule,
   ]
 })
 export class CoreModule { }

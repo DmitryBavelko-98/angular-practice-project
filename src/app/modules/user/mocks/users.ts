@@ -7,11 +7,11 @@ export const USERS: IUser[] = [
       lastName: 'Ivanova',
       age: 20,
       gender: false,
-      department: 'marketing',
+      department: 'Marketing',
       company: 'Google',
-      email:"Kate@gmail.com",
+      email:"KateIvanova@gmail.com",
       imageUrl: 'assets/img/user/avatar_f.png',
-      addresses: []
+      addresses: [{addressLine: 'ul. Pushkina, 1/125', city: 'Minsk', zip: '220120'}]
   },
   {
       id: 2,
@@ -19,10 +19,10 @@ export const USERS: IUser[] = [
       lastName: 'Bavelko',
       age: 24,
       gender: true,
-      department: 'front end',
-      company: 'Coherent', email:"Dima@gmail.com",
+      department: 'Front-end',
+      company: 'Coherent', email:"DimaBavelko@gmail.com",
       imageUrl: 'assets/img/user/avatar_m.png',
-      addresses: []
+      addresses: [{addressLine: 'ul. Raynisa, 3/11'}]
   },
   {
       id: 3,
@@ -32,9 +32,9 @@ export const USERS: IUser[] = [
       gender: true,
       department: 'CEO',
       company: 'Tesla',
-      email:"Elon@gmail.com",
+      email:"ElonMusk@gmail.com",
       imageUrl: 'assets/img/user/musk.png',
-      addresses: []
+      addresses: [{addressLine: '4608 12th Ave, Sacramento, CA 95820, США', city: 'Sacramento', zip: '1111111'}]
   },
   {
       id: 4,
@@ -42,11 +42,14 @@ export const USERS: IUser[] = [
       lastName: 'Petrova',
       age: 18,
       gender: false,
-      department: 'IT',
+      department: 'Human resources',
       company: 'Google',
-      email:"Anna@gmail.com",
+      email:"AnnaPetrova@gmail.com",
       imageUrl: 'assets/img/user/girl.jpg',
-      addresses: [],
+      addresses: [
+        {addressLine: 'ul. Gromova, 6/23', city: 'Minsk', zip: '220120'},
+        {addressLine: 'ul. Lermontova, 43/23', city: 'Moscow', zip: '120220'}
+      ],
   },
   {
       id: 5,
@@ -54,10 +57,10 @@ export const USERS: IUser[] = [
       lastName: 'Popov',
       age: 33,
       gender: true,
-      department: 'sales',
+      department: 'Management',
       company: 'BMW',
-      email:"Max@gmail.com",
+      email:"MaxPopov@gmail.com",
       imageUrl: 'assets/img/user/avatar_african.png',
-      addresses: []
+      addresses: [{addressLine: 'Strindbergstraße 23', city: 'Berlin', zip: '660550'}]
   },
 ];

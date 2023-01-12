@@ -13,6 +13,7 @@ import { UniqueEmailValidatorDirective } from './directives/unique-email-validat
 import { AddressFormComponent } from './components/address-form/address-form.component';
 import { AddressesListComponent } from './components/addresses-list/addresses-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { GuardPopupComponent } from './components/guard-popup/guard-popup.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ValidationErrorComponent,
     UniqueEmailValidatorDirective,
     AddressesListComponent,
-    AddressFormComponent
+    AddressFormComponent,
+    GuardPopupComponent
   ],
   imports: [
     CommonModule,
@@ -35,12 +37,14 @@ import { ReactiveFormsModule } from '@angular/forms';
   exports: [
     CardComponent,
     FavoritesListComponent,
+    AddressesListComponent,
+    AddressFormComponent,
+    GuardPopupComponent,
+    MatCardModule,
     MatButtonModule,
     MatIconModule,
     MatInputModule,
     ValidationErrorComponent,
-    AddressesListComponent,
-    AddressFormComponent,
     ReactiveFormsModule,
   ],
   providers: [

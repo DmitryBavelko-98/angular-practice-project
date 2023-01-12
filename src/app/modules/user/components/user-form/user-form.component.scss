@@ -1,0 +1,26 @@
+form {
+    background-color: #fff;
+    border-radius: 3px;
+    max-width: 75%;
+    margin: 0 auto;
+    padding: 20px;
+
+    h2 {
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: 500;
+    }
+
+    .forms {
+        display: flex;
+        gap: 50px;
+        .user-info {
+            flex: 1 1 auto;
+        }
+    }
+
+    button {
+        display: block;
+        margin: 0 auto;
+    }
+}

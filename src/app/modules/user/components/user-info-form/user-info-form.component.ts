@@ -4,11 +4,11 @@ import { GmailValidatorDirective } from 'src/app/modules/shared/directives/gmail
 import { UniqueEmailValidatorDirective } from 'src/app/modules/shared/directives/unique-email-validator.directive';
 
 @Component({
-  selector: 'app-add-user-form',
-  templateUrl: './add-user-form.component.html',
-  styleUrls: ['./add-user-form.component.scss'],
+  selector: 'app-user-info-form',
+  templateUrl: './user-info-form.component.html',
+  styleUrls: ['./user-info-form.component.scss'],
 })
-export class AddUserFormComponent implements OnInit {
+export class UserInfoFormComponent implements OnInit {
   @Output() formReady = new EventEmitter<FormGroup>();
   imageName!: string;
 
@@ -21,10 +21,10 @@ export class AddUserFormComponent implements OnInit {
   userFormGroup = this.fb.group({
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
-    age: ['15', [Validators.required, Validators.min(15), Validators.max(100)]],
+    age: [15, [Validators.required, Validators.min(15), Validators.max(100)]],
     email: ['', {
       validators: [Validators.required, Validators.email, this.gmailValidator],
-      asyncValidators: [this.uniqueEmailValidator],
+      asyncValidators: [this.uniqueEmailValidator.validate],
       updateOn: 'blur'
     }],
     company: ['', Validators.maxLength(35)],
@@ -40,8 +40,6 @@ export class AddUserFormComponent implements OnInit {
   setImageUrl(event: Event): void {
     const target = event.target as HTMLInputElement;
     const files = target.files as FileList;
-
-    console.log(this.imageName);
 
     if (files && files[0]) {
       const type = files[0].type;

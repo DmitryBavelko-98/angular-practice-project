@@ -1,0 +1,11 @@
+<app-user-form 
+    [user]="user" 
+    (formTouched)="receiveFormStatus()"
+    (formReady)="receiveForm($event)">
+</app-user-form>
+
+<app-guard-popup 
+    [isOpened]="isPopupOpened" 
+    [message]="'Unsaved data detected. Want to exit?'"
+    (responseReady)="getPopupResponse($event)">
+</app-guard-popup>
