@@ -1,0 +1,11 @@
+<div class="wrapper" *ngIf="isOpened">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>{{ message }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-actions>
+            <button (click)="sendPopupResponse(true)" mat-button>Yes</button>
+            <button (click)="sendPopupResponse(false)"  mat-button>No</button>
+        </mat-card-actions>
+    </mat-card>
+</div>
