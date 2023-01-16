@@ -1,16 +1,33 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanDeactivate, RouterStateSnapshot } from '@angular/router';
-import { EditUserPageComponent } from '../../user/pages/edit-user-page/edit-user-page.component';
+import { MatDialog } from '@angular/material/dialog';
+import { Observable, map } from 'rxjs';
+import { CanDeactivateComponent } from '../models/can-deactivate';
+import { GuardPopupComponent } from '../../shared/components/guard-popup/guard-popup.component';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DataChangesGuard implements CanDeactivate<EditUserPageComponent> {
+export class DataChangesGuard implements CanDeactivate<CanDeactivateComponent> {
+  constructor(private modalService: MatDialog) {};
+
   canDeactivate(
-    component: EditUserPageComponent,
+    component: CanDeactivateComponent,
     currentRoute: ActivatedRouteSnapshot,
     currentState: RouterStateSnapshot,
-    nextState?: RouterStateSnapshot): boolean {
-      return component.canDeactivate();
+    nextState?: RouterStateSnapshot): Observable<boolean> | boolean {
+
+      if (component.canDeactivate()) {
+        return true;
+      }
+    
+      const dialogRef = this.modalService.open(GuardPopupComponent, {
+        width: '450px',
+        height: '200px', 
+      });
+    
+      return dialogRef.afterClosed().pipe(
+        map(result => result === true)
+      );    
     }
 }

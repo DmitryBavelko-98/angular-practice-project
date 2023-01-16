@@ -1,11 +1,10 @@
-<div class="wrapper" *ngIf="isOpened">
-    <mat-card>
-        <mat-card-header>
-            <mat-card-title>{{ message }}</mat-card-title>
-        </mat-card-header>
-        <mat-card-actions>
-            <button (click)="sendPopupResponse(true)" mat-button>Yes</button>
-            <button (click)="sendPopupResponse(false)"  mat-button>No</button>
-        </mat-card-actions>
-    </mat-card>
+<div class="popup">
+    <h1 mat-dialog-title>Do you want to live the page?</h1>
+    <div mat-dialog-content>
+        You have unsaved changes. Do you want to live the page?
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button mat-dialog-close (click)="no()">No</button>
+        <button mat-button mat-dialog-close (click)="ok()"cdkFocusInitial>Ok</button>
+    </div>
 </div>

@@ -1,4 +1,5 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-guard-popup',
@@ -6,13 +7,13 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./guard-popup.component.scss']
 })
 export class GuardPopupComponent {
-  @Input() isOpened!: boolean;
-  @Input() message!: string;
-  @Output() responseReady = new EventEmitter();
+  constructor(private dialogRef: MatDialogRef<GuardPopupComponent>) { }
 
-  constructor() { }
+  ok(){
+    this.dialogRef.close(true);
+  }
 
-  sendPopupResponse(value: boolean): void {
-    this.responseReady.emit(value);
+  no(){
+    this.dialogRef.close(false);
   }
 }
