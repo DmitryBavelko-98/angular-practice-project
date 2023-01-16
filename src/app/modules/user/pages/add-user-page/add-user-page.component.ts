@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-add-user-page',
@@ -14,7 +14,10 @@ export class AddUserPageComponent implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router,
-  ) {}
+    private fb: FormBuilder,
+  ) {
+    this.form = this.fb.group({});
+  }
 
   ngOnInit(): void {}
 
@@ -33,6 +36,10 @@ export class AddUserPageComponent implements OnInit {
 
       this.router.navigate(['users']);
     }
+  }
+
+  addFormControl(event: FormGroup, key: string): void {
+    this.form.addControl(key, event);
   }
 }
 

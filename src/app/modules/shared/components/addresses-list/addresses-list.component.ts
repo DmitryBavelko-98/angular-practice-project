@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormArray, Validators, FormGroup } from '@angular/forms';
 
 @Component({
@@ -7,13 +7,15 @@ import { FormBuilder, FormControl, FormArray, Validators, FormGroup } from '@ang
   styleUrls: ['./addresses-list.component.scss'],
 })
 export class AddressesListComponent implements OnInit {
+  @Input() addressesLength!: number;
   @Output() formReady = new EventEmitter<FormGroup>();
+
   isAddresRemovable = false;
 
   constructor(private fb: FormBuilder) { };
 
   ngOnInit(): void {
-    this.addAddress();
+    this.addAddress(this.addressesLength);
     this.formReady.emit(this.addressesFormGroup);
   }
 
@@ -29,24 +31,25 @@ export class AddressesListComponent implements OnInit {
     return <FormControl>this.addressesFormGroup.controls["addresses"].at(index).get(controlName);
   }
 
-  addAddress(): void {
-    const addressForm = this.fb.group({
-      addressLine: ['', Validators.required],
-      city: [''],
-      zip: [{value: '', disabled: true}, Validators.required]
-    });
-
-    addressForm.get('city')?.valueChanges.subscribe(value => {
-      if (value) {
-        addressForm.get('zip')?.enable();
-        return;
-      }
+  addAddress(addresses: number = 1): void {
+    for (let i = 0; i < addresses; i++) {
+      const addressForm = this.fb.group({
+        addressLine: ['', Validators.required],
+        city: [''],
+        zip: [{value: '', disabled: true}, Validators.required]
+      });
   
-      addressForm.get('zip')?.disable();
-    });
-
-    this.addresses.push(addressForm);
-
+      addressForm.get('city')?.valueChanges.subscribe(value => {
+        if (value) {
+          addressForm.get('zip')?.enable();
+          return;
+        }
+    
+        addressForm.get('zip')?.disable();
+      });
+  
+      this.addresses.push(addressForm);
+    }
     this.isAddresRemovable = true;
   }
 

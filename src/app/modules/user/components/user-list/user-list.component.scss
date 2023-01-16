@@ -1,6 +1,12 @@
+:host {
+    width: 65%;
+    margin: 0 auto;
+}
+
 .users-list {
     display: flex;
     gap: 50px;
+    width: 100%;
     flex-wrap: wrap;
     
     &__btns {

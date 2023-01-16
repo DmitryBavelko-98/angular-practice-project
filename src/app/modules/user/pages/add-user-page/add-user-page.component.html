@@ -1,2 +1,21 @@
-<app-user-form (formReady)="sendForm($event)"></app-user-form>
+<form 
+    [formGroup]="form" 
+    (submit)="sendUserData()">
+    
+    <div class="forms">
+        <div class="user-info">
+            <h2>User info</h2>
+            <app-user-info-form (formReady)="addFormControl($event, 'user')"></app-user-info-form>
+        </div>
 
+        <div class="user-addresses">
+            <h2>Addresses</h2>
+            <app-addresses-list (formReady)="addFormControl($event, 'addresses')"></app-addresses-list>
+        </div>
+    </div>
+
+    <button 
+        mat-raised-button 
+        color="primary">
+    Save user</button>
+</form>

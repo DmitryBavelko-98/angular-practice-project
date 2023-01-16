@@ -1,11 +1,22 @@
-<app-user-form 
-    [user]="user" 
-    (formTouched)="receiveFormStatus()"
-    (formReady)="receiveForm($event)">
-</app-user-form>
+<form 
+    [ngClass]="{'hide-form': !user}"
+    [formGroup]="form" 
+    (submit)="sendUserData()">
+    
+    <div class="forms">
+        <div class="user-info">
+            <h2>User info</h2>
+            <app-user-info-form *ngIf="user" [userId]="user.id" (formReady)="addFormControl($event, 'user')"></app-user-info-form>
+        </div>
 
-<app-guard-popup 
-    [isOpened]="isPopupOpened" 
-    [message]="'Unsaved data detected. Want to exit?'"
-    (responseReady)="getPopupResponse($event)">
-</app-guard-popup>
+        <div class="user-addresses">
+            <h2>Addresses</h2>
+            <app-addresses-list [addressesLength]="user.addresses.length" (formReady)="addFormControl($event, 'addresses')"></app-addresses-list>
+        </div>
+    </div>
+
+    <button 
+        mat-raised-button 
+        color="primary">
+    Save user</button>
+</form>

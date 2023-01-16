@@ -14,6 +14,8 @@ import { AddressFormComponent } from './components/address-form/address-form.com
 import { AddressesListComponent } from './components/addresses-list/addresses-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { GuardPopupComponent } from './components/guard-popup/guard-popup.component';
+import { SearchFieldComponent } from './components/search-field/search-field.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { GuardPopupComponent } from './components/guard-popup/guard-popup.compon
     UniqueEmailValidatorDirective,
     AddressesListComponent,
     AddressFormComponent,
-    GuardPopupComponent
+    GuardPopupComponent,
+    SearchFieldComponent
   ],
   imports: [
     CommonModule,
@@ -32,6 +35,7 @@ import { GuardPopupComponent } from './components/guard-popup/guard-popup.compon
     MatButtonModule,
     MatIconModule,
     MatInputModule,
+    MatDialogModule,
     ReactiveFormsModule,
   ],
   exports: [
@@ -44,8 +48,10 @@ import { GuardPopupComponent } from './components/guard-popup/guard-popup.compon
     MatButtonModule,
     MatIconModule,
     MatInputModule,
+    MatDialogModule,
     ValidationErrorComponent,
     ReactiveFormsModule,
+    SearchFieldComponent
   ],
   providers: [
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}},

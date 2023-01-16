@@ -1,4 +1,6 @@
-export const CARS = [
+import ICar from "../models/car";
+
+export const CARS: ICar[] = [
     {
         id: 1,
         name: 'BMW M3',

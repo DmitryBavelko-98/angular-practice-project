@@ -9,7 +9,6 @@ import { UserInfoFormComponent } from './components/user-info-form/user-info-for
 import { UserListItemComponent } from './components/user-list-item/user-list-item.component';
 import { EditUserPageComponent } from './pages/edit-user-page/edit-user-page.component';
 import { CoreModule } from '../core/core.module';
-import { UserFormComponent } from './components/user-form/user-form.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +18,6 @@ import { UserFormComponent } from './components/user-form/user-form.component';
     UserInfoFormComponent,
     UserListItemComponent,
     EditUserPageComponent,
-    UserFormComponent,
   ],
   imports: [
     CommonModule,

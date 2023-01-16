@@ -3,6 +3,7 @@ import IUser from '../models/user';
 import { USERS } from '../mocks/users';
 import { FavoritesService } from '../../core/services/favorites.service';
 import { FavoriteTypes } from 'src/app/modules/core/models/favorite-types';
+import { map, Observable, of, delay } from 'rxjs';
 import IUserForm from '../models/user-form';
 
 @Injectable({
@@ -11,18 +12,41 @@ import IUserForm from '../models/user-form';
 export class UserService {
   constructor(private favoriteService: FavoritesService) {}
 
-  getUsers(): IUser[] {
-    return USERS;
+  getUsers(): Observable<IUser[]> {
+    return of(USERS).pipe(delay(500));
   }
 
-  getLikedUsers(): IUser[] {
+  getLikedUsers(): Observable<IUser[]> {
     const likedIds = this.favoriteService.getFavorites(FavoriteTypes.User);
 
-    return this.getUsers().filter(user => likedIds.includes(user.id));
+    return this.getUsers()
+      .pipe(
+        map(users => users.filter(user => likedIds.includes(user.id)))
+      );
   }
 
-  getUserById(id: number): IUser {
-    return this.getUsers().find(user => user.id === id) as IUser;
+  getFilteredUsers(param: string): Observable<IUser[]> {
+    return this.getUsers()
+      .pipe(
+        map(users => users.filter(user => {
+          const firstName = user.firstName.toLowerCase();
+          const lastName = user.lastName.toLowerCase();
+          const fullName = `${firstName} ${lastName}`;
+
+          if (!fullName.includes(param)) {
+            return;
+          } else {
+            return user;
+          }
+        })),
+      )
+  }
+
+  getUserById(id: number):  Observable<IUser> {
+    return this.getUsers()
+      .pipe(
+        map(users => users.find(user => user.id === id))  
+      ) as Observable<IUser>;
   }
 
   addNewUser(user: IUserForm): void {

@@ -1,28 +1,36 @@
 import { Directive } from '@angular/core';
-import { AbstractControl, AsyncValidator, NG_ASYNC_VALIDATORS, ValidationErrors } from '@angular/forms';
-import { Observable, of, delay, map, catchError } from 'rxjs';
-import { USERS } from '../../user/mocks/users';
+import { AbstractControl, AsyncValidatorFn, NG_ASYNC_VALIDATORS, ValidationErrors } from '@angular/forms';
+import { Observable, map } from 'rxjs';
+import { UserService } from '../../user/services/user.service'; 
 
 @Directive({
   selector: '[appUniqueEmailValidator]',
   providers: [{provide: NG_ASYNC_VALIDATORS, useExisting: UniqueEmailValidatorDirective, multi: true}]
 })
-export class UniqueEmailValidatorDirective implements AsyncValidator {
+export class UniqueEmailValidatorDirective {
+  constructor(private userService: UserService) {}
 
-  validate(control: AbstractControl): Observable<ValidationErrors> {
-    return emailExists(control.value).pipe(
-      map(res => (res ? {emailExists: true} : null)),
-      catchError(err => err)
-    ) as Observable<ValidationErrors>;
-
-    function emailExists(email: string): Observable<boolean> {
-      return of(email).pipe(
-        delay(500),
-        map(() => {
-          const emails = USERS.map(user => user.email.toLowerCase());
-          return emails.includes(email.toLowerCase());
+  validate(id: number): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+      return this.emailExists(id, control.value).pipe(
+        map(res => {
+          return res ? {emailExists: true} : null
         })
       );
     }
+  }
+
+  private emailExists(id: number, email: string): Observable<boolean> {
+
+    return this.userService.getUsers()
+      .pipe(
+        map(users => {
+          const emails = users
+            .map(user => (user.id === id) ? null : user.email)
+            .filter(email => !!email === true)
+
+            return emails.includes(email);
+        }),
+      );
   }
 }
