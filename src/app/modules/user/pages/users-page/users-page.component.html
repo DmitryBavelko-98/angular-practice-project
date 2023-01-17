@@ -1,0 +1,20 @@
+<app-search-field (valueChange)="findUsers($event)"></app-search-field>
+
+<div class="user-content">
+    <app-user-list 
+        [users]="users"
+        [favoriteUsers]="favoriteUsers"
+        (isLiked)="likeItem($event)">
+    </app-user-list>
+
+    <app-favorites-list>
+        <app-user-list 
+            [users]="favoriteUsers"
+            [favoriteUsers]="favoriteUsers">
+        </app-user-list>
+    </app-favorites-list>
+</div>
+
+<mat-spinner *ngIf="!users.length"></mat-spinner>
+
+

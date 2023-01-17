@@ -6,12 +6,12 @@
     <div class="forms">
         <div class="user-info">
             <h2>User info</h2>
-            <app-user-info-form *ngIf="user" [userId]="user.id" (formReady)="addFormControl($event, 'user')"></app-user-info-form>
+            <app-user-info-form [userId]="user?.id || null" (formReady)="addFormControl($event, 'user')"></app-user-info-form>
         </div>
 
         <div class="user-addresses">
             <h2>Addresses</h2>
-            <app-addresses-list [addressesLength]="user.addresses.length" (formReady)="addFormControl($event, 'addresses')"></app-addresses-list>
+            <app-addresses-list [initialAddresses]="addresses" (formReady)="addFormControl($event, 'addresses')"></app-addresses-list>
         </div>
     </div>
 
@@ -20,3 +20,5 @@
         color="primary">
     Save user</button>
 </form>
+
+<mat-spinner *ngIf="!user"></mat-spinner>
