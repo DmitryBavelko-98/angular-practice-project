@@ -1,6 +1,6 @@
 import { Directive } from '@angular/core';
 import { AbstractControl, AsyncValidatorFn, NG_ASYNC_VALIDATORS, ValidationErrors } from '@angular/forms';
-import { Observable, map } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 import { UserService } from '../../user/services/user.service'; 
 
 @Directive({
@@ -10,7 +10,7 @@ import { UserService } from '../../user/services/user.service';
 export class UniqueEmailValidatorDirective {
   constructor(private userService: UserService) {}
 
-  validate(id: number): AsyncValidatorFn {
+  validate(id: number | null): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
       return this.emailExists(id, control.value).pipe(
         map(res => {
@@ -20,16 +20,22 @@ export class UniqueEmailValidatorDirective {
     }
   }
 
-  private emailExists(id: number, email: string): Observable<boolean> {
+  private emailExists(id: number | null, email: string): Observable<boolean> {
 
     return this.userService.getUsers()
       .pipe(
         map(users => {
-          const emails = users
-            .map(user => (user.id === id) ? null : user.email)
-            .filter(email => !!email === true)
+          let emails;
 
-            return emails.includes(email);
+          if (!id) {
+            emails = users.map(user => user.email);
+          } else {
+            emails = users
+              .map(user => (user.id === id) ? null : user.email)
+              .filter(email => !!email === true);
+          }
+
+          return emails.includes(email);
         }),
       );
   }

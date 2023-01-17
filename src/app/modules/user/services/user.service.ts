@@ -26,18 +26,18 @@ export class UserService {
   }
 
   getFilteredUsers(param: string): Observable<IUser[]> {
+    const searchParam = param.toLowerCase();
+
     return this.getUsers()
       .pipe(
         map(users => users.filter(user => {
-          const firstName = user.firstName.toLowerCase();
-          const lastName = user.lastName.toLowerCase();
-          const fullName = `${firstName} ${lastName}`;
+          const fullName = `${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`;
 
-          if (!fullName.includes(param)) {
-            return;
-          } else {
+          if (fullName.includes(searchParam)) {
             return user;
-          }
+          } 
+
+          return;
         })),
       )
   }
@@ -49,16 +49,20 @@ export class UserService {
       ) as Observable<IUser>;
   }
 
-  addNewUser(user: IUserForm): void {
+  addNewUser(user: IUserForm): Observable<IUser[]> {
     USERS.push({
       id: USERS.length + 1,
       ...user,
     });
+
+    return of(USERS).pipe(delay(500));
   }
 
-  updateUser(userData: IUser): void {
+  updateUser(userData: IUser): Observable<IUser[]> {
    const userIndex = USERS.findIndex(user => user.id === userData.id);
 
    USERS[userIndex] = userData;
+
+   return of(USERS).pipe(delay(500));
   }
 }

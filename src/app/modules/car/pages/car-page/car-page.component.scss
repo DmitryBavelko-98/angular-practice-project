@@ -25,4 +25,9 @@
 
 .car-content {
     display: flex;
+    gap: 3%;
+}
+
+mat-spinner {
+    margin: 50px auto;
 }

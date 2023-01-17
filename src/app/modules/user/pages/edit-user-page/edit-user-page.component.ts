@@ -1,27 +1,26 @@
 import { 
   Component, 
   OnInit, 
-  AfterViewInit,
   OnDestroy
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router'
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import IUser from '../../models/user';
-import { Observable, merge, Subscription } from 'rxjs';
+import { Observable, merge, Subscription, take } from 'rxjs';
 
 @Component({
   selector: 'app-edit-user-page',
   templateUrl: './edit-user-page.component.html',
   styleUrls: ['./edit-user-page.component.scss']
 })
-export class EditUserPageComponent implements OnInit, AfterViewInit, OnDestroy {
+export class EditUserPageComponent implements OnInit, OnDestroy {
   isFormSaved: boolean = false;
   id!: number;
   form!: FormGroup;
   user!: IUser;
-  subscriptions: Subscription[] = [];
+  emailSubscription!: Subscription;
 
   constructor(
     private router: Router,
@@ -29,29 +28,46 @@ export class EditUserPageComponent implements OnInit, AfterViewInit, OnDestroy {
     private userService: UserService,
     private fb: FormBuilder
   ) {
-    this.form = this.fb.group({});
+    this.form = this.fb.group({
+      addressesForm: this.fb.group({
+          addresses: this.fb.array([]),
+      }),
+    });
   }
 
   ngOnInit(): void {
-    this.activateRoute.params.subscribe(params => {
-      this.id = +params['id'];
-    })
-    const idSubscription = this.userService.getUserById(this.id)
-      .subscribe(user => this.user = user);
+    this.activateRoute.params
+      .pipe(take(1))
+      .subscribe(params => {
+        this.id = +params['id'];
 
-    this.subscriptions.push(idSubscription);
+        this.loadUser();
+      });
   }
 
-  ngAfterViewInit(): void {
-    if (this.user) {
-      setTimeout(() => this.patchDataToForm());
-    }
+  ngOnDestroy(): void {
+    this.emailSubscription.unsubscribe();
   }
 
-  checkPopup(permission: boolean): void {
-    this.isFormSaved = true;
+  loadUser(): void {
+    this.userService.getUserById(this.id)
+    .pipe(take(1))
+    .subscribe(user => {
+      this.user = user;
+
+      for (let address of this.user.addresses) {
+        this.addresses.push(this.fb.group({}));
+      }
+
+      setTimeout(() => {
+        this.addresses.patchValue(this.user.addresses);
+      });
+
+      this.patchDataToForm();
+      this.generateEmailValue();
+    });
   }
- 
+
   canDeactivate(): boolean {
     return !this.form.dirty || this.isFormSaved; 
   }
@@ -71,13 +87,10 @@ export class EditUserPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private patchDataToForm(): void {
     const userInfoForm = this.form.controls['user'];
-    const addressesForm = this.form.controls['addresses'];
-    const {firstName, lastName, age, email, company, department, gender, imageUrl} = this.user;
+    const {firstName, lastName, age, email, company, department, imageUrl , gender} = this.user;
 
-    this.generateEmailValue();
-
-    addressesForm.get('addresses')!.patchValue(this.user.addresses);
-    userInfoForm.patchValue({firstName, lastName, age, email, company, department, gender, imageUrl});
+    this.addresses!.patchValue(this.user.addresses);
+    userInfoForm.patchValue({firstName, lastName, age, email, company, department, imageUrl , gender});
   }
 
   private generateEmailValue(): void {
@@ -85,21 +98,19 @@ export class EditUserPageComponent implements OnInit, AfterViewInit, OnDestroy {
     const lastName = this.form.controls['user'].get('lastName');
     const email = this.form.controls['user'].get('email')
 
-    const emailSubscription = merge(
+    this.emailSubscription = merge(
       firstName?.valueChanges as Observable<string>,
       lastName?.valueChanges as Observable<string>
     ).subscribe(() => {
       email?.setValue(`${firstName?.value}${lastName?.value}` + '@gmail.com');
     });
-
-    this.subscriptions.push(emailSubscription);
   }
 
   addFormControl(event: FormGroup, key: string): void {
     this.form.addControl(key, event);
   }
 
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+  get addresses(): FormArray {
+    return this.form.get('addressesForm.addresses') as FormArray;
   }
 }

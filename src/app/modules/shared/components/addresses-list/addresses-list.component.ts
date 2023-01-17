@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormArray, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, FormArray, Validators, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-addresses-list',
@@ -7,50 +7,28 @@ import { FormBuilder, FormControl, FormArray, Validators, FormGroup } from '@ang
   styleUrls: ['./addresses-list.component.scss'],
 })
 export class AddressesListComponent implements OnInit {
-  @Input() addressesLength!: number;
+  @Input() initialAddresses?: FormArray;
   @Output() formReady = new EventEmitter<FormGroup>();
 
-  isAddresRemovable = false;
+  isAddresRemovable = true;
+  addressesForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) { };
+  constructor(private fb: FormBuilder) {};
 
   ngOnInit(): void {
-    this.addAddress(this.addressesLength);
-    this.formReady.emit(this.addressesFormGroup);
+    this.addressesForm= this.fb.group({
+      addresses: this.initialAddresses || this.fb.array([this.fb.group({})])
+    });
+    this.formReady.emit(this.addressesForm);
   }
-
-  addressesFormGroup= this.fb.group({
-    addresses: this.fb.array([])
-  });
 
   get addresses(): FormArray {   
-    return this.addressesFormGroup.controls["addresses"] as FormArray;
+    return this.addressesForm.controls["addresses"] as FormArray;
   }
 
-  getArrayControl(index: number, controlName: string): FormControl {
-    return <FormControl>this.addressesFormGroup.controls["addresses"].at(index).get(controlName);
-  }
-
-  addAddress(addresses: number = 1): void {
-    for (let i = 0; i < addresses; i++) {
-      const addressForm = this.fb.group({
-        addressLine: ['', Validators.required],
-        city: [''],
-        zip: [{value: '', disabled: true}, Validators.required]
-      });
-  
-      addressForm.get('city')?.valueChanges.subscribe(value => {
-        if (value) {
-          addressForm.get('zip')?.enable();
-          return;
-        }
-    
-        addressForm.get('zip')?.disable();
-      });
-  
-      this.addresses.push(addressForm);
-    }
+  addAddress(num: number = 1): void {
     this.isAddresRemovable = true;
+    this.addresses.push(this.fb.group({}));
   }
 
   removeAddress(index: number): void {

@@ -9,8 +9,13 @@ import { UniqueEmailValidatorDirective } from 'src/app/modules/shared/directives
   styleUrls: ['./user-info-form.component.scss'],
 })
 export class UserInfoFormComponent implements OnInit {
-  @Input() userId!: number;
+  @Input() set userId(id: number | null) {
+    if (id) {
+      this.userFormGroup.get('email')!.setAsyncValidators(this.uniqueEmailValidator.validate(id));
+    }
+  }  
   @Output() formReady = new EventEmitter<FormGroup>();
+
   imageName!: string;
   emailControl!: FormControl;
 
@@ -20,12 +25,17 @@ export class UserInfoFormComponent implements OnInit {
     private uniqueEmailValidator: UniqueEmailValidatorDirective
   ) {}
 
+  ngOnInit(): void {
+    this.formReady.emit(this.userFormGroup);
+  }
+
   userFormGroup = this.fb.group({
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
     age: [15, [Validators.required, Validators.min(15), Validators.max(100)]],
     email: ['', {
       validators: [Validators.required, Validators.email, this.gmailValidator],
+      asyncValidators: [this.uniqueEmailValidator.validate(null)],
       updateOn: 'blur'
     }],
     company: ['', Validators.maxLength(35)],
@@ -33,11 +43,6 @@ export class UserInfoFormComponent implements OnInit {
     gender: [true, Validators.required],
     imageUrl: [''],
   });
-
-  ngOnInit(): void {
-    this.formReady.emit(this.userFormGroup);
-    this.userFormGroup.get('email')!.setAsyncValidators(this.uniqueEmailValidator.validate(this.userId));
-  }
   
   setImageUrl(event: Event): void {
     const target = event.target as HTMLInputElement;

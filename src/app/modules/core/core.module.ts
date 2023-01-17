@@ -1,19 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from './components/header/header.component';
 import { AppRoutingModule } from '../../app-routing.module';
+import { HeaderComponent } from './components/header/header.component';
+import { ConfirmPopupComponent } from './components/confirm-popup/confirm-popup.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
-    HeaderComponent
+    HeaderComponent,
+    ConfirmPopupComponent,
   ],
   imports: [
     CommonModule,
     AppRoutingModule,
+    MatDialogModule,
   ],
   exports: [
-    HeaderComponent,
+    MatDialogModule,
     AppRoutingModule,
+    HeaderComponent,
+    ConfirmPopupComponent,
   ]
 })
 export class CoreModule { }

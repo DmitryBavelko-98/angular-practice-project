@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserPageComponent } from './pages/user-page/user-page.component';
+import { UsersPageComponent } from './pages/users-page/users-page.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { SharedModule } from '../shared/shared.module';
 import { AddUserPageComponent } from './pages/add-user-page/add-user-page.component';
@@ -12,7 +12,7 @@ import { CoreModule } from '../core/core.module';
 
 @NgModule({
   declarations: [
-    UserPageComponent,
+    UsersPageComponent,
     UserListComponent,
     AddUserPageComponent,
     UserInfoFormComponent,
@@ -26,7 +26,7 @@ import { CoreModule } from '../core/core.module';
     CoreModule
   ],
   exports: [
-    UserPageComponent,
+    UsersPageComponent,
   ]
 })
 export class UserModule { }

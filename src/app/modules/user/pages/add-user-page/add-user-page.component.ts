@@ -32,9 +32,10 @@ export class AddUserPageComponent implements OnInit {
     if (this.form.valid) {
       const userData = {...this.form.value.user, ...this.form.value.addresses};
 
-      this.userService.addNewUser(userData);
-
-      this.router.navigate(['users']);
+      this.userService.addNewUser(userData)
+        .subscribe(() => {
+          this.router.navigate(['users']);
+        });
     }
   }
 

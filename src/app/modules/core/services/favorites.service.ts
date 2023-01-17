@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FavoriteTypes } from '../models/favorite-types';
 import { FavoriteStore }  from '../models/favorite-store';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

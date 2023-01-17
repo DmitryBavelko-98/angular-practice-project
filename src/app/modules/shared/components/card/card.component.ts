@@ -9,7 +9,7 @@ export class CardComponent {
   @Input() isItemLiked!: boolean;
   @Output() isLiked = new EventEmitter();
 
-  likeItem() {
+  likeItem(): void {
     this.isLiked.emit();
   }
 }

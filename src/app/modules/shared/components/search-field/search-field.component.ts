@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Subscription, distinctUntilChanged, debounceTime } from 'rxjs';
+import { distinctUntilChanged, debounceTime, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-search-field',
@@ -8,9 +8,10 @@ import { Subscription, distinctUntilChanged, debounceTime } from 'rxjs';
   styleUrls: ['./search-field.component.scss']
 })
 export class SearchFieldComponent implements OnInit, OnDestroy  {
+  @Output() valueChange = new EventEmitter();
+
   form!: FormGroup;
   valueSubscription!: Subscription;
-  @Output() valueChange = new EventEmitter();
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
@@ -27,11 +28,15 @@ export class SearchFieldComponent implements OnInit, OnDestroy  {
       .subscribe(value => this.sendInput(value))
   }
 
+  ngOnDestroy(): void {
+    this.valueSubscription.unsubscribe();
+  }
+
   sendInput(value: string): void {
     this.valueChange.emit(value)
   }
 
-  ngOnDestroy(): void {
-    this.valueSubscription.unsubscribe();
+  clearValue(): void {
+    this.form.get('search')!.setValue('');
   }
 }

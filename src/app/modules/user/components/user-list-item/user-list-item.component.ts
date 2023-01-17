@@ -9,10 +9,11 @@ const DEFAULT_USER_IMG = 'assets/img/user/default_avatar.png';
   styleUrls: ['./user-list-item.component.scss']
 })
 export class UserListItemComponent {
-  defaultImage: string = DEFAULT_USER_IMG;
   @Input() user!: IUser;
   @Input() isItemLiked!: boolean;
   @Output() isLiked = new EventEmitter();
+
+  defaultImage: string = DEFAULT_USER_IMG;
 
   likeItem(): void {
     this.isLiked.emit();

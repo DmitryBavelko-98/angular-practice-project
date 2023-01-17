@@ -1,0 +1,29 @@
+@import 'variables';
+
+.popup {
+    text-align: center;
+    padding: 20px;
+    font-size: 1.7rem;
+
+    .mat-dialog-content {
+        margin: 20px 0;
+    }
+
+    .mat-dialog-actions {
+        display: flex;
+        justify-content: center;
+        gap: 50px;
+
+        .warn {
+            color: #fff;
+            background-color: $warnBackgroundColor;
+        }
+
+        button {
+            border: none;
+            border-radius: 3px;
+            padding: 8px 20px;
+        }
+    }
+}
+
