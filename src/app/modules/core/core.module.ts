@@ -4,6 +4,8 @@ import { AppRoutingModule } from '../../app-routing.module';
 import { HeaderComponent } from './components/header/header.component';
 import { ConfirmPopupComponent } from './components/confirm-popup/confirm-popup.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { HttpClientModule } from '@angular/common/http';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -14,10 +16,14 @@ import { MatDialogModule } from '@angular/material/dialog';
     CommonModule,
     AppRoutingModule,
     MatDialogModule,
+    HttpClientModule,
+    NgxPaginationModule,
   ],
   exports: [
     MatDialogModule,
     AppRoutingModule,
+    HttpClientModule,
+    NgxPaginationModule,
     HeaderComponent,
     ConfirmPopupComponent,
   ]

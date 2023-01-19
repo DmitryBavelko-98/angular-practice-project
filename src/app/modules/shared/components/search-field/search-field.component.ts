@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { distinctUntilChanged, debounceTime, Subscription } from 'rxjs';
+import { distinctUntilChanged, debounceTime, Subscription, takeWhile } from 'rxjs';
 
 @Component({
   selector: 'app-search-field',

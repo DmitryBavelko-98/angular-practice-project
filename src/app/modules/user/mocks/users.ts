@@ -2,7 +2,7 @@ import IUser from "../models/user";
 
 export const USERS: IUser[] = [
   {
-      id: 1,
+      id: '1',
       firstName: 'Kate',
       lastName: 'Ivanova',
       age: 20,
@@ -14,7 +14,7 @@ export const USERS: IUser[] = [
       addresses: [{addressLine: 'ul. Pushkina, 1/125', city: 'Minsk', zip: '220120'}]
   },
   {
-      id: 2,
+      id: '2',
       firstName: 'Dima',
       lastName: 'Bavelko',
       age: 24,
@@ -25,7 +25,7 @@ export const USERS: IUser[] = [
       addresses: [{addressLine: 'ul. Raynisa, 3/11'}]
   },
   {
-      id: 3,
+      id: '3',
       firstName: 'Elon',
       lastName: 'Musk',
       age: 50,
@@ -37,7 +37,7 @@ export const USERS: IUser[] = [
       addresses: [{addressLine: '4608 12th Ave, Sacramento, CA 95820, США', city: 'Sacramento', zip: '1111111'}]
   },
   {
-      id: 4,
+      id: '4',
       firstName: 'Anna',
       lastName: 'Petrova',
       age: 18,
@@ -52,7 +52,7 @@ export const USERS: IUser[] = [
       ],
   },
   {
-      id: 5,
+      id: '5',
       firstName: 'Max',
       lastName: 'Popov',
       age: 33,

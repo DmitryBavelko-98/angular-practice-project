@@ -2,7 +2,7 @@ import ICar from "../models/car";
 
 export const CARS: ICar[] = [
     {
-        id: 1,
+        id: '1',
         name: 'BMW M3',
         color: 'blue',
         releaseYear: 2022,
@@ -10,7 +10,7 @@ export const CARS: ICar[] = [
         imageUrl: 'assets/img/car/bmw.jpg'
     },
     {
-        id: 2,
+        id: '2',
         name: 'Mercedes-Benz C',
         color: 'grey',
         releaseYear: 2019,
@@ -18,7 +18,7 @@ export const CARS: ICar[] = [
         imageUrl: 'assets/img/car/mercedes.jpg'
     },
     {
-        id: 3,
+        id: '3',
         name: 'Toyota Camry',
         color: 'white',
         releaseYear: 2018,
@@ -26,7 +26,7 @@ export const CARS: ICar[] = [
         imageUrl: 'assets/img/car/toyota.jpg'
     },
     {
-        id: 4,
+        id: '4',
         name: 'Porsche 911',
         color: 'red',
         releaseYear: 2020,
@@ -34,7 +34,7 @@ export const CARS: ICar[] = [
         imageUrl: 'assets/img/car/porsche.jpg'
     },
     {
-        id: 5,
+        id: '5',
         name: 'Ford Focus',
         color: 'green',
         releaseYear: 2018,

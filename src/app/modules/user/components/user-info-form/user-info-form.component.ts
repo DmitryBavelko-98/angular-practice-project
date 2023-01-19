@@ -9,7 +9,7 @@ import { UniqueEmailValidatorDirective } from 'src/app/modules/shared/directives
   styleUrls: ['./user-info-form.component.scss'],
 })
 export class UserInfoFormComponent implements OnInit {
-  @Input() set userId(id: number | null) {
+  @Input() set userId(id: string | null) {
     if (id) {
       this.userFormGroup.get('email')!.setAsyncValidators(this.uniqueEmailValidator.validate(id));
     }

@@ -21,12 +21,19 @@ export class UsersPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getCurrentUsers();
+  }
+
+  getCurrentUsers(): void {
     this.userService.getUsers()
-      .pipe(take(1))
-      .subscribe(users => this.users = users);
-    this.userService.getLikedUsers()
+    .pipe(take(1))
+    .subscribe(users => {
+      this.users = users;
+
+      this.userService.getLikedUsers()
       .pipe(take(1))
       .subscribe(users => this.favoriteUsers = users);
+    });
   }
 
   likeItem(user: IUser): void {

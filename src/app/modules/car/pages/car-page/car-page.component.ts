@@ -17,16 +17,23 @@ export class CarPageComponent implements OnInit {
 
   constructor(
     private carService: CarService,
-    private favoriteService: FavoritesService
+    private favoriteService: FavoritesService,
   ) {}
 
   ngOnInit(): void {  
+    this.getCurrentCars();
+  }
+
+  getCurrentCars(): void {
     this.carService.getCars()
       .pipe(take(1))
-      .subscribe(cars => this.cars = cars);
-    this.carService.getLikedCars()
-      .pipe(take(1))
-      .subscribe(cars => this.favoriteCars = cars);
+      .subscribe(cars => {
+        this.cars = cars;
+
+        this.carService.getLikedCars()
+        .pipe(take(1))
+        .subscribe(cars => this.favoriteCars = cars);
+      });
   }
 
   checkLikedList(car: ICar) {

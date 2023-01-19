@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators  } from '@angular/forms';
 import { Subscription, take } from 'rxjs';
 
@@ -7,10 +7,10 @@ import { Subscription, take } from 'rxjs';
   templateUrl: './address-form.component.html',
   styleUrls: ['./address-form.component.scss']
 })
-export class AddressFormComponent implements OnInit  {
+export class AddressFormComponent implements OnInit, OnDestroy  {
   @Input() address!: AbstractControl;
 
-  subscribe: Subscription = new Subscription();
+  subscribtion!: Subscription | undefined;
 
   constructor(private fb: FormBuilder) {}
 
@@ -19,18 +19,20 @@ export class AddressFormComponent implements OnInit  {
       this.addressGroup.addControl('city', this.fb.control(null));
       this.addressGroup.addControl('zip', new FormControl({value: null, disabled: true}, Validators.required));
   
-      this.subscribe.add(
-        this.addressGroup.get('city')?.valueChanges
-          .pipe(take(1))
-          .subscribe(value => {
-            if (value) {
-              this.addressGroup.get('zip')?.enable();
-              return;
-            }
-        
-            this.addressGroup.get('zip')?.disable();
-          })
-      );
+      this.subscribtion = this.addressGroup.get('city')?.valueChanges
+        .subscribe(value => {
+          if (value) {
+            this.addressGroup.get('zip')?.enable();
+            return;
+          }
+      
+          this.addressGroup.get('zip')?.setValue('');
+          this.addressGroup.get('zip')?.disable();
+        });
+  }
+
+  ngOnDestroy(): void {
+    this.subscribtion?.unsubscribe();
   }
 
   get addressGroup() {

@@ -26,7 +26,7 @@ export class AddressesListComponent implements OnInit {
     return this.addressesForm.controls["addresses"] as FormArray;
   }
 
-  addAddress(num: number = 1): void {
+  addAddress(): void {
     this.isAddresRemovable = true;
     this.addresses.push(this.fb.group({}));
   }

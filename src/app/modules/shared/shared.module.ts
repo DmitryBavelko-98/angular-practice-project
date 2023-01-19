@@ -15,6 +15,7 @@ import { AddressesListComponent } from './components/addresses-list/addresses-li
 import { ReactiveFormsModule } from '@angular/forms';
 import { SearchFieldComponent } from './components/search-field/search-field.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatInputModule,
     ReactiveFormsModule,
     MatProgressSpinnerModule,
+    MatPaginatorModule,
   ],
   exports: [
     CardComponent,
@@ -46,6 +48,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatIconModule,
     MatInputModule,
     MatProgressSpinnerModule,
+    MatPaginatorModule,
     ValidationErrorComponent,
     ReactiveFormsModule,
     SearchFieldComponent

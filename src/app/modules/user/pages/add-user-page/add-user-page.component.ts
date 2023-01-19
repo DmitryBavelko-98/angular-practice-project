@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-add-user-page',
@@ -33,9 +34,8 @@ export class AddUserPageComponent implements OnInit {
       const userData = {...this.form.value.user, ...this.form.value.addresses};
 
       this.userService.addNewUser(userData)
-        .subscribe(() => {
-          this.router.navigate(['users']);
-        });
+        .pipe(take(1))
+        .subscribe(() => this.router.navigate(['users']));
     }
   }
 
