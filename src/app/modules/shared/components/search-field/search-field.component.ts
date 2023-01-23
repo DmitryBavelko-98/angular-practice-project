@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { distinctUntilChanged, debounceTime, Subscription, takeWhile } from 'rxjs';
+import { distinctUntilChanged, debounceTime, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-search-field',
@@ -25,7 +25,7 @@ export class SearchFieldComponent implements OnInit, OnDestroy  {
         distinctUntilChanged(),
         debounceTime(500)
       )
-      .subscribe(value => this.sendInput(value))
+      .subscribe(value => this.sendInput(value));
   }
 
   ngOnDestroy(): void {
@@ -33,7 +33,7 @@ export class SearchFieldComponent implements OnInit, OnDestroy  {
   }
 
   sendInput(value: string): void {
-    this.valueChange.emit(value)
+    this.valueChange.emit(value);
   }
 
   clearValue(): void {

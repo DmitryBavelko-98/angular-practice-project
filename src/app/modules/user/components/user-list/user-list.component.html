@@ -1,6 +1,6 @@
 <div class="users-list">
 
-    <ng-container *ngFor="let user of users | paginate: {itemsPerPage: pageSize, currentPage: page};">
+    <ng-container *ngFor="let user of users">
 
         <app-user-list-item 
             [user]="user"
@@ -11,10 +11,3 @@
     </ng-container>
 </div>
 
-<mat-paginator
-    *ngIf="users.length > 10" 
-    [length]="users.length" 
-    [pageSizeOptions]="pageSizes" 
-    aria-label="Select page"
-    (page)="setPage($event)">
-</mat-paginator>

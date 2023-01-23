@@ -3,6 +3,7 @@ import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { take } from 'rxjs';
+import { UserApiService } from '../../services/user-api.service';
 
 @Component({
   selector: 'app-add-user-page',
@@ -13,7 +14,7 @@ export class AddUserPageComponent implements OnInit {
   form!: FormGroup;
 
   constructor(
-    private userService: UserService,
+    private userApi: UserApiService,
     private router: Router,
     private fb: FormBuilder,
   ) {
@@ -33,7 +34,7 @@ export class AddUserPageComponent implements OnInit {
     if (this.form.valid) {
       const userData = {...this.form.value.user, ...this.form.value.addresses};
 
-      this.userService.addNewUser(userData)
+      this.userApi.addNewUser(userData)
         .pipe(take(1))
         .subscribe(() => this.router.navigate(['users']));
     }

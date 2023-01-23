@@ -3,11 +3,11 @@ import {
   OnInit, 
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router'
-import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import IUser from '../../models/user';
 import { Observable, merge, Subscription, take, takeWhile } from 'rxjs';
+import { UserApiService } from '../../services/user-api.service';
 
 @Component({
   selector: 'app-edit-user-page',
@@ -25,7 +25,7 @@ export class EditUserPageComponent implements OnInit {
   constructor(
     private router: Router,
     private activateRoute: ActivatedRoute,
-    private userService: UserService,
+    private userApi: UserApiService,
     private fb: FormBuilder
   ) {
     this.form = this.fb.group({
@@ -50,14 +50,9 @@ export class EditUserPageComponent implements OnInit {
   }
 
   loadUser(): void {
-    this.userService.getUserById(this.id)
+    this.userApi.getUserById(this.id)
     .pipe(take(1))
     .subscribe(user => {
-      if (!user) {
-        this.router.navigate(['users']);
-        return;
-      }
-
       this.user = user;
 
       for (let address of this.user.addresses) {
@@ -80,7 +75,7 @@ export class EditUserPageComponent implements OnInit {
 
     if (this.form.valid) {
       const userData = {...this.form.value.user, ...this.form.value.addresses};
-      this.userService.editUser({id: this.user.id, ...userData})
+      this.userApi.editUser({id: this.user.id, ...userData})
         .pipe(take(1))
         .subscribe();
 

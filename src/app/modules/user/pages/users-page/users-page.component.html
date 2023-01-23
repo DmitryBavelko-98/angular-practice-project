@@ -1,5 +1,8 @@
 <app-search-field (valueChange)="findUsers($event)"></app-search-field>
 
+<h2 *ngIf="showError">Error occured!</h2>
+<mat-spinner *ngIf="loading"></mat-spinner>
+
 <div class="user-content">
     <app-user-list 
         [users]="users"
@@ -15,6 +18,10 @@
     </app-favorites-list>
 </div>
 
-<mat-spinner *ngIf="!users.length"></mat-spinner>
+<mat-paginator
+    [length]="1000"
+    [pageSizeOptions]="[10, 20, 50]"
+    (page)="uploadUsers($event)">
+</mat-paginator>
 
 

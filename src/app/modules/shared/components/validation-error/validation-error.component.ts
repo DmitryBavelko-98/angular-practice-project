@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
-import { errorConfig } from '../../models/error-config';
+import { errorConfig } from '../../configs/error-config';
 
 @Component({
   selector: 'app-validation-error',

@@ -1,46 +1,65 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
-import { catchError, retry, map, find, mergeMap } from 'rxjs/operators';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry, map } from 'rxjs/operators';
+import { GetParams } from '../models/get-params';
+import { HttpServiceHeaders } from '../models/http-service-headers';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpService {
-  private data!: Observable<any>;
-
   constructor(private http: HttpClient) { }
 
-  getData(url: string): Observable<any> {
-    if(!this.data) {
-      this.http.get(url)
-        .pipe(data => this.data = data);
-    }
+  get(url: string, params?: GetParams, headers?: HttpServiceHeaders): Observable<any> {
+    const options = this.setRequestOptions(params, headers);
 
-    return this.data;
-  }
-
-  postData(data: unknown[], newData: unknown): Observable<any> {
-    return of(data)
+    return this.http.get(url, options)
       .pipe(
-        map(res => {
-          res.push(newData);
-          return res;
-        })
+        retry(1),
+        catchError(this.handleError)
       );
   }
 
-  editData(data: unknown[], editData: any): Observable<any> {
-    return of(data)
+  post<T>(url: string, body: T | null, params?: GetParams, headers?: HttpServiceHeaders): Observable<any> {
+    const options = this.setRequestOptions(params, headers);
+
+    return this.http.post(url, body, options)
       .pipe(
-        map(res => {
-            const index = res.findIndex((res: any) => res.id === editData.id);
+        retry(1),
+        catchError(this.handleError)
+      );
+  }
 
-            data[index] = editData;
+  put<T>(url: string, body: T | null , params?: GetParams, headers?: HttpServiceHeaders): Observable<any> {
+    const options = this.setRequestOptions(params, headers);
 
-            return data;
-          }
-        )
-      )
+    return this.http.put(url, body, options)
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      );
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      console.error('An error occurred:', error.error);
+    } else {
+      console.error(
+        `Backend returned code ${error.status}, body was: `, error.error);
+    }
+    return throwError(() => new Error('Something bad happened; please try again later.'));
+  }
+
+  private setRequestOptions(
+    params?: GetParams, 
+    headers?: HttpServiceHeaders,
+  ) {
+    return {
+      headers: headers || {} as const,
+      params: params || {} as const,
+      observe: 'response' as const,
+      responseType: 'json' as const,
+    }
   }
 }
