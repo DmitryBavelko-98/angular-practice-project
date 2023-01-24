@@ -20,29 +20,19 @@ export class UserApiService {
     return this.users;
   }
 
-  getUsers(page: number = 1, results: number = 10): Observable<IUser[]> {
-    return this.httpService.get(environment.apiURL, {page, results})
+  getUsers(param: string = '', results: number = 10, page: number = 1): Observable<IUser[]> {
+    const filter = param.toLowerCase();
+
+    return this.httpService.get(environment.apiURL, {filter, page, results})
       .pipe(
         map((res) => this.users = res.body.results.map((user: IResponseUser) => transformUserData(user))),
       );
   }
 
-  getFilteredUsers(param: string): Observable<IUser[]> {
-    const name = param.toLowerCase();
-
-    return this.httpService.get(environment.apiURL, {name})
-      .pipe(
-        map((res) => res.body.results.map((user: IResponseUser) => transformUserData(user))),
-      )
-  }
-
   getUserById(id: string): Observable<IUser> {
     return this.httpService.get(environment.apiURL, {id})
       .pipe(
-        map((res) => {
-          console.log(res)
-          return transformUserData(res.body.results[0])
-        })
+        map((res) => transformUserData(res.body.results[0]))
       );
   }
 

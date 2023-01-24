@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, retry, map } from 'rxjs/operators';
+import { catchError, retry } from 'rxjs/operators';
 import { GetParams } from '../models/get-params';
 import { HttpServiceHeaders } from '../models/http-service-headers';
 
@@ -21,9 +21,9 @@ export class HttpService {
       );
   }
 
-  post<T>(url: string, body: T | null, params?: GetParams, headers?: HttpServiceHeaders): Observable<any> {
+  post<T>(url: string, body: T, params?: GetParams, headers?: HttpServiceHeaders): Observable<any> {
     const options = this.setRequestOptions(params, headers);
-
+    
     return this.http.post(url, body, options)
       .pipe(
         retry(1),
@@ -31,7 +31,7 @@ export class HttpService {
       );
   }
 
-  put<T>(url: string, body: T | null , params?: GetParams, headers?: HttpServiceHeaders): Observable<any> {
+  put<T>(url: string, body: T , params?: GetParams, headers?: HttpServiceHeaders): Observable<any> {
     const options = this.setRequestOptions(params, headers);
 
     return this.http.put(url, body, options)
@@ -56,8 +56,8 @@ export class HttpService {
     headers?: HttpServiceHeaders,
   ) {
     return {
-      headers: headers || {} as const,
-      params: params || {} as const,
+      headers: headers,
+      params: params,
       observe: 'response' as const,
       responseType: 'json' as const,
     }

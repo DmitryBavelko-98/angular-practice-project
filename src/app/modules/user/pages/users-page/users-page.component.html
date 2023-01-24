@@ -19,8 +19,8 @@
 </div>
 
 <mat-paginator
-    [length]="1000"
-    [pageSizeOptions]="[10, 20, 50]"
+    [length]="paginatorData.length"
+    [pageSizeOptions]="paginatorData.pageSizeOptions"
     (page)="uploadUsers($event)">
 </mat-paginator>
 

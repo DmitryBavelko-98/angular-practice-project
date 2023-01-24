@@ -3,10 +3,10 @@ import { UserService } from '../../services/user.service';
 import { FavoritesService } from 'src/app/modules/core/services/favorites.service';
 import { FavoriteTypes } from 'src/app/modules/core/models/favorite-types';
 import IUser from '../../models/user';
-import { catchError, finalize, map, take, throwError } from 'rxjs';
+import { catchError, finalize, take, throwError } from 'rxjs';
 import { UserApiService } from '../../services/user-api.service';
 import { PageEvent } from '@angular/material/paginator';
-import { Router } from '@angular/router';
+import { paginatorConfig } from 'src/app/modules/shared/configs/paginator-config';
 
 @Component({
   selector: 'app-users',
@@ -16,9 +16,10 @@ import { Router } from '@angular/router';
 export class UsersPageComponent implements OnInit {
   users: IUser[] = [];
   favoriteUsers: IUser[] = [];
-  pageEvent!: PageEvent;
-  pageSize: number = 10;
+  paginatorData = paginatorConfig;
+  pageSize: number = this.paginatorData.pageSize;
   currentPage: number = 1;
+  searchParam: string = '';
 
   loading: boolean = false;
   showError: boolean = false;
@@ -33,9 +34,9 @@ export class UsersPageComponent implements OnInit {
     this.getCurrentUsers();
   }
 
-  getCurrentUsers(pageIndex: number = 1): void {
+  getCurrentUsers(pageSize: number = 10, pageIndex: number = 1): void {
     this.loading = true;
-    this.userApi.getUsers(pageIndex)
+    this.userApi.getUsers(this.searchParam, pageSize, pageIndex)
     .pipe(
       take(1),
       catchError(err => {
@@ -45,7 +46,8 @@ export class UsersPageComponent implements OnInit {
       finalize(() => this.loading = false)
     )
     .subscribe(users => {
-      this.users = users
+      this.users = users;
+
       this.userService.getLikedUsers()
       .pipe(take(1))
       .subscribe(favoriteUsers => this.favoriteUsers = favoriteUsers);
@@ -60,7 +62,9 @@ export class UsersPageComponent implements OnInit {
   }
 
   findUsers(param: string): void {
-      this.userApi.getFilteredUsers(param)
+      this.searchParam = param;
+
+      this.userApi.getUsers(this.searchParam, this.pageSize)
       .pipe(take(1))
       .subscribe(users => {
         this.users = users;
@@ -70,7 +74,6 @@ export class UsersPageComponent implements OnInit {
   uploadUsers(page: PageEvent): void {
     this.pageSize = page.pageSize;
 
-    this.getCurrentUsers(page.pageIndex + 1);
-    this.currentPage = page.pageIndex + 1;
+    this.getCurrentUsers(this.pageSize, page.pageIndex + 1);
   }
 }
