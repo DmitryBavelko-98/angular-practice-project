@@ -3,10 +3,11 @@ import { UserService } from '../../services/user.service';
 import { FavoritesService } from 'src/app/modules/core/services/favorites.service';
 import { FavoriteTypes } from 'src/app/modules/core/models/favorite-types';
 import IUser from '../../models/user';
-import { catchError, concatMap, exhaustMap, finalize, mergeMap, Observable, Subject, switchMap, take, takeWhile, throwError } from 'rxjs';
+import { catchError, concatMap, exhaustMap, finalize, mergeMap, Observable, Subject, switchMap, take, takeUntil, takeWhile, throwError } from 'rxjs';
 import { UserApiService } from '../../services/user-api.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { paginatorConfig } from 'src/app/modules/shared/configs/paginator-config';
+import { LoggerService } from 'src/app/modules/core/services/logger.service';
 
 @Component({
   selector: 'app-users',
@@ -16,7 +17,6 @@ import { paginatorConfig } from 'src/app/modules/shared/configs/paginator-config
 export class UsersPageComponent implements OnInit, OnDestroy {
   @ViewChild('paginator') paginator!: MatPaginator; 
 
-  exists: boolean = true;
   users: IUser[] = [];
   favoriteUsers: IUser[] = [];
   paginatorConf = paginatorConfig;
@@ -24,6 +24,7 @@ export class UsersPageComponent implements OnInit, OnDestroy {
 
   loading: boolean = false;
 
+  destroy$ = new Subject<void>();
   refresh$ = new Subject<void>();
   blockingRefresh$ = new Subject<void>();
   userInfo$ = new Subject<string>();
@@ -33,6 +34,7 @@ export class UsersPageComponent implements OnInit, OnDestroy {
     private userApi: UserApiService,
     public userService: UserService,
     private favoriteService: FavoritesService,
+    private logger: LoggerService
   ) {}
 
   ngOnInit(): void {
@@ -43,7 +45,7 @@ export class UsersPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.exists = false;
+    this.destroy$.next();
   }
 
   private getCurrentUsers(): Observable<IUser[]> {
@@ -53,10 +55,7 @@ export class UsersPageComponent implements OnInit, OnDestroy {
 
     return this.userApi
       .getUsers(this.searchParam, this.paginator.pageSize, this.paginator.pageIndex + 1)
-      .pipe(
-        take(1),
-        finalize(() => this.loading = false)
-      );
+      .pipe(finalize(() => this.loading = false));
   }
 
   private initUsers(users: IUser[]) {
@@ -73,31 +72,31 @@ export class UsersPageComponent implements OnInit, OnDestroy {
   private initSubjects(): void {
     this.refresh$.asObservable()
       .pipe(
-        takeWhile(() => this.exists), 
-        switchMap(() => this.getCurrentUsers())
+        switchMap(() => this.getCurrentUsers()),
+        takeUntil(this.destroy$)
       )
       .subscribe(users => this.initUsers(users));
 
     this.blockingRefresh$.asObservable()
       .pipe(
-        takeWhile(() => this.exists), 
-        exhaustMap(() => this.getCurrentUsers())
+        exhaustMap(() => this.getCurrentUsers()),
+        takeUntil(this.destroy$)
       )
       .subscribe(users => this.initUsers(users));
 
     this.userInfo$.asObservable()
       .pipe(
-        takeWhile(() => this.exists), 
-        mergeMap((userId: string) => this.userService.getUserInfo(userId))
+        mergeMap((userId: string) => this.userApi.downloadUserExcel(userId)),
+        takeUntil(this.destroy$)
       )
-      .subscribe();
+      .subscribe((user) => this.logger.log(`data received: ${JSON.stringify(user)}`));
 
     this.saveUser$.asObservable()
       .pipe(
-        takeWhile(() => this.exists), 
-        concatMap((userId: string) => this.userService.saveUser(userId))
+        concatMap((userId: string) => this.userApi.downloadUser(userId)),
+        takeUntil(this.destroy$)
       )
-      .subscribe();
+      .subscribe((userId) => this.logger.log(`user with ${userId} saved`));
   }
 
   refresh(): void {
