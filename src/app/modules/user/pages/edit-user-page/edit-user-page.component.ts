@@ -100,9 +100,7 @@ export class EditUserPageComponent implements OnInit {
       lastName?.valueChanges as Observable<string>
     )
     .pipe((takeWhile(() => this.componentExists)))
-    .subscribe(() => {
-      email?.setValue(`${firstName?.value}${lastName?.value}` + '@gmail.com');
-    });
+    .subscribe(() => email!.setValue(`${firstName?.value}${lastName?.value}` + '@gmail.com'));
   }
 
   addFormControl(event: FormGroup, key: string): void {

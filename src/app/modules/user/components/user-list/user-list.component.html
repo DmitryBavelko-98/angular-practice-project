@@ -5,7 +5,9 @@
         <app-user-list-item 
             [user]="user"
             [isItemLiked]="favoriteUsers.includes(user)"
-            (isLiked)="likeItem(user)">
+            (isLiked)="likeItem(user)"
+            (infoRequested)="requestUserInfo(user.id)"
+            (userSaved)="saveUser(user.id)">
         </app-user-list-item>
 
     </ng-container>

@@ -1,13 +1,21 @@
-<app-search-field (valueChange)="findUsers($event)"></app-search-field>
+<div class="page-panel">
+    <app-search-field (valueChange)="findUsers($event)"></app-search-field>
+    <div class="page-btns">
+        <button (click)="refresh()">Refresh</button>
+        <button (click)="refreshWithBlocking()">Wait for refresh</button>
+    </div>
+</div>
 
-<h2 *ngIf="showError">Error occured!</h2>
+<h2 *ngIf="!loading && !users.length">Error occured!</h2>
 <mat-spinner *ngIf="loading"></mat-spinner>
 
 <div class="user-content">
     <app-user-list 
         [users]="users"
         [favoriteUsers]="favoriteUsers"
-        (isLiked)="likeItem($event)">
+        (isLiked)="likeItem($event)"
+        (userInfoRequested)="downloadUserInfo($event)"
+        (userSaved)="saveUser($event)">
     </app-user-list>
 
     <app-favorites-list>
@@ -19,9 +27,10 @@
 </div>
 
 <mat-paginator
-    [length]="paginatorData.length"
-    [pageSizeOptions]="paginatorData.pageSizeOptions"
-    (page)="uploadUsers($event)">
+    #paginator
+    [length]="paginatorConf.length"
+    [pageSize]="paginatorConf.pageSize"
+    [pageSizeOptions]="paginatorConf.pageSizeOptions"
+    (page)="uploadUsers()">
 </mat-paginator>
-
 

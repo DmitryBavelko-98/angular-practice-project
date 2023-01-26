@@ -20,7 +20,17 @@
         </div>
     </div>
 
-    <a class="edit-icon" [routerLink]="['edit-user', user.id]">
-        <mat-icon>edit</mat-icon>
-    </a>
+    <div class="card-controls">
+        <a class="edit-icon" [routerLink]="['edit-user', user.id]">
+            <mat-icon>edit</mat-icon>
+        </a>
+    
+        <a class="info-icon" (click)="requestUserInfo(user.id)">
+            <mat-icon>download</mat-icon>
+        </a>
+
+        <a class="save-icon" (click)="saveUser(user.id)">
+            <mat-icon>save</mat-icon>
+        </a>
+    </div>
 </app-card>

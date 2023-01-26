@@ -1,3 +1,5 @@
+@import 'variables'; 
+
 .user-content {
     display: flex;
     gap: 3%;
@@ -6,4 +8,28 @@
 
 mat-spinner {
     margin: 50px auto;
+}
+
+.page-panel {
+    display: flex;
+    justify-content: space-around;
+
+    .page-btns {
+        display: flex;
+        gap: 20px;
+
+        button {
+            height: 40px;
+            background-color: $secondaryFontColor;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 2px;
+    
+            font: {
+                size: 1.7rem;
+                font-weight: 500;
+            }
+        }
+    }
 }

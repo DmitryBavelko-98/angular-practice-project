@@ -12,10 +12,20 @@ export class UserListItemComponent {
   @Input() user!: IUser;
   @Input() isItemLiked!: boolean;
   @Output() isLiked = new EventEmitter();
+  @Output() infoRequested = new EventEmitter<string>();
+  @Output() userSaved = new EventEmitter<string>();
 
   defaultImage: string = DEFAULT_USER_IMG;
 
   likeItem(): void {
     this.isLiked.emit();
+  }
+
+  requestUserInfo(userId: string): void {
+    this.infoRequested.emit(userId)
+  }
+
+  saveUser(userId: string): void {
+    this.userSaved.emit(userId);
   }
 }
