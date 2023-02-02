@@ -1,21 +1,27 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CarPageComponent } from './modules/car/pages/car-page/car-page.component';
-import { DataChangesGuard } from './modules/core/guards/data-changes.guard';
-import { AddUserPageComponent } from './modules/user/pages/add-user-page/add-user-page.component';
-import { EditUserPageComponent } from './modules/user/pages/edit-user-page/edit-user-page.component';
-import { UsersPageComponent } from './modules/user/pages/users-page/users-page.component';
+import { HomePageComponent } from './modules/core/pages/home-page/home-page.component';
+import { RegistrationPageComponent } from './modules/authorization/pages/registration-page/registration-page.component';
+import { LoginPageComponent } from './modules/authorization/pages/login-page/login-page.component';
+import { AuthGuard } from './modules/core/guards/auth.guard';
 
 const routes: Routes = [
-  {path: '', redirectTo:'/users', pathMatch: 'full'},
-  {path: 'cars', component: CarPageComponent},
-  {path: 'add-user', component: AddUserPageComponent},
-  {path: 'users', component: UsersPageComponent},
-  {
-    path: 'users/edit-user/:id', 
-    component: EditUserPageComponent,
-    canDeactivate: [DataChangesGuard]
+  {path: '', canActivate:[AuthGuard], children: [
+      {path: '', redirectTo: 'login', pathMatch: 'full'},
+      {path: 'home', component: HomePageComponent},
+      {
+        path: 'car', 
+        loadChildren: () => import('./modules/car/car.module').then(m => m.CarModule)
+      },
+      {
+        path: 'user',
+        loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule)
+      },
+    ],
   },
+  {path: 'reg', component: RegistrationPageComponent},
+  {path: 'login', component: LoginPageComponent},
+  {path: "**", redirectTo:"home", pathMatch: 'full'},
 ];
 
 @NgModule({

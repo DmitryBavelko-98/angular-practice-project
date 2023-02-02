@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { CarListComponent } from './components/car-list/car-list.component';
 import { SharedModule } from '../shared/shared.module';
 import { CarListItemComponent } from './components/car-list-item/car-list-item.component';
-import { CoreModule } from '../core/core.module';
+import { CarRoutingModule } from './car-routing.module';
 
 
 @NgModule({
@@ -18,7 +18,7 @@ import { CoreModule } from '../core/core.module';
     CommonModule,
     FormsModule,
     SharedModule,
-    CoreModule
+    CarRoutingModule,
   ],
   exports: [
     CarPageComponent,
