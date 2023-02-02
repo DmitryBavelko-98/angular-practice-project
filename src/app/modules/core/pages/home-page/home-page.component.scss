@@ -1,0 +1,13 @@
+.home-page {
+    text-align: center;
+
+    &__title {
+        font-weight: 600;
+        font-size: 4rem;
+        margin: 0 0 30px 0;
+    }
+
+    &__image {
+        width: 600px;
+    }
+}
