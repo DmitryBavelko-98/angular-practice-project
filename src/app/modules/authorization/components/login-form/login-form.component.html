@@ -1,0 +1,21 @@
+<ng-container [formGroup]="loginGroup">
+
+    <div class="form-field">
+        <mat-form-field appearance="outline">
+            <mat-label>User name</mat-label>
+            <input formControlName="userName" id="userName" matInput placeholder="Type here">
+        </mat-form-field>
+        <app-validation-error [control]="getControl('userName')" controlName="Users name"></app-validation-error>
+    </div>
+
+    <div class="form-field">
+        <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input formControlName="password" id="password" matInput placeholder="Type here">
+        </mat-form-field>
+        <app-validation-error [control]="getControl('password')" controlName="Password"></app-validation-error>
+    </div>
+    
+    <mat-error>Incorrect login or password!</mat-error>
+    
+</ng-container>

@@ -1,0 +1,26 @@
+.form-field {
+    position: relative;
+
+    app-validation-error {
+        position: absolute;
+        top: 80%;
+        left: 1%;
+    }
+
+    .mat-form-field {
+        display: block;
+        margin: 0 0 20px 0;
+    } 
+}
+
+mat-error {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 0 15px 0;
+    visibility: hidden;
+    text-align: center;
+}
+
+.show {
+    visibility: visible;
+}

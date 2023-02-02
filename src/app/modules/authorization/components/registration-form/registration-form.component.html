@@ -1,0 +1,33 @@
+<ng-container [formGroup]="regGroup">
+    <div class="form-field form-field_user-name">
+        <mat-form-field appearance="outline">
+            <mat-label>User name</mat-label>
+            <input formControlName="userName" id="userName" matInput placeholder="Type here">
+        </mat-form-field>
+        <app-validation-error [control]="getRegControl('userName')" controlName="User name"></app-validation-error>
+    </div>
+    
+    <ng-container [formGroup]="passGroup">
+    
+        <div class="form-field">
+            <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input formControlName="password" id="password" matInput placeholder="Type here">
+            </mat-form-field>
+            <app-validation-error [control]="getPassControl('password')" controlName="Password"></app-validation-error>
+        </div>
+    
+        <div class="form-field">
+            <mat-form-field appearance="outline">
+                <mat-label>Confirm password</mat-label>
+                <input formControlName="confirmPassword" id="confirmPassword" matInput placeholder="Type here">
+            </mat-form-field>
+            <app-validation-error [control]="getPassControl('confirmPassword')" controlName="Confirmation"></app-validation-error>
+        </div>
+
+        <mat-error
+         [ngClass]="{show: checkPassGroupValidity()}">
+         Passwords don't match!
+        </mat-error>
+    </ng-container>
+</ng-container>

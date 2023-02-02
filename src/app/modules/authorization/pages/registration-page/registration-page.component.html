@@ -1,0 +1,11 @@
+<form [formGroup]="form" (submit)="sendData()">
+
+    <app-registration-form (formReady)="addFormControl($event, 'regForm')"></app-registration-form>
+
+    <div class="success-message" [ngClass]="{show: showSuccessMessage}">You were successfully registred!</div>
+
+    <button 
+        mat-raised-button 
+        color="primary">
+    Register</button>
+</form>

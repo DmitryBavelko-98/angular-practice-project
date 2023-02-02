@@ -1,0 +1,11 @@
+<form [formGroup]="form" (submit)="checkUser()">
+
+    <app-login-form (formReady)="addFormControl($event, 'loginForm')"></app-login-form>
+
+    <mat-error [ngClass]="{show: showErrorMessage}">Incorrect user name or password!</mat-error>
+
+    <button 
+        mat-raised-button 
+        color="primary">
+    Log in</button>
+</form>
