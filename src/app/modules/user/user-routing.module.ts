@@ -7,8 +7,14 @@ import { EditUserPageComponent } from './pages/edit-user-page/edit-user-page.com
 import { UsersPageComponent } from './pages/users-page/users-page.component';
 
 const routes: Routes = [
-  {path: '', component: UsersPageComponent},
-  {path: 'add', component: AddUserPageComponent},
+  {
+    path: '', 
+    component: UsersPageComponent
+  },
+  {
+    path: 'add', 
+    component: AddUserPageComponent
+  },
   {
     path: 'edit/:id', 
     component: EditUserPageComponent,

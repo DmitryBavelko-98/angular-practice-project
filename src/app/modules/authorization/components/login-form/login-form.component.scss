@@ -13,6 +13,17 @@
     } 
 }
 
+.redirectionMessage {
+    text-align: center;
+    font: {
+        size: 1.7rem;
+        weight: 500;
+    }
+    a {
+        cursor: pointer;
+    }
+}
+
 mat-error {
     font-size: 1.5rem;
     font-weight: 600;

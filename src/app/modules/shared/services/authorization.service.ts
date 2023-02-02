@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, delay, Observable, of } from 'rxjs';
-import { IUserCredentials } from '../models/user-credentials';
-import { users } from '../mocks/users';
+import { IUserCredentials } from '../../authorization/models/user-credentials';
+import { users } from '../../authorization/mocks/users';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthorizationService {
   user$ = new BehaviorSubject<string>('');
+  isAuthorized = !!JSON.parse(localStorage.getItem('user') as string);
 
-  constructor() {}
+  constructor() {
+    this.user$.next(localStorage.getItem('user') as string);
+  }
 
   getUsers(): Observable<IUserCredentials[]> {
     return of(users).pipe(delay(500));
@@ -24,7 +27,8 @@ export class AuthorizationService {
   loginUser(userCred: IUserCredentials): Observable<boolean> {
     for (let cred of users) {
       if (cred.userName === userCred.userName && cred.password === userCred.password) {
-        this.setCurrentUser(cred.userName);
+        this.setCurrentUser(userCred);
+        this.isAuthorized = true;
         return of(true).pipe(delay(500));
       }
     }
@@ -34,29 +38,18 @@ export class AuthorizationService {
 
   logoutUser(): Observable<string> {
     this.setCurrentUser('');
-
-    // this.user$.next('');
+    this.isAuthorized = false;
 
     return this.getCurrentUser();
   }
 
-  setCurrentUser(userName: string): void {
-    localStorage.setItem('user', userName);
+  setCurrentUser(user: IUserCredentials | string): void {
+    localStorage.setItem('user', JSON.stringify(user));
 
     this.user$.next(localStorage.getItem('user') as string);
-
-    // this.user$.next(userName);
-  }
-
-  findUser(): IUserCredentials {
-    return users.find(user => user.userName === localStorage.getItem('user')) as IUserCredentials;
   }
 
   getCurrentUser(): Observable<string> {
-    if (localStorage.getItem('user')) {
-      this.loginUser(this.findUser()).pipe(delay(500));
-    }
-
     return this.user$.asObservable().pipe(delay(500));    
   }
 }

@@ -1,6 +1,6 @@
 import {AbstractControl, AsyncValidatorFn, ValidationErrors} from '@angular/forms';
 import { map, Observable } from 'rxjs';
-import { IUserCredentials } from '../models/user-credentials';
+import { IUserCredentials } from '../../authorization/models/user-credentials';
 import { AuthorizationService } from './authorization.service';
 
 export function uniqueUser(authService: AuthorizationService): AsyncValidatorFn {

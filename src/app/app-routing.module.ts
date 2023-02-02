@@ -4,24 +4,57 @@ import { HomePageComponent } from './modules/core/pages/home-page/home-page.comp
 import { RegistrationPageComponent } from './modules/authorization/pages/registration-page/registration-page.component';
 import { LoginPageComponent } from './modules/authorization/pages/login-page/login-page.component';
 import { AuthGuard } from './modules/core/guards/auth.guard';
+import { AuthedUserWrapperComponent } from './modules/core/components/authed-user-wrapper/authed-user-wrapper.component';
+import { NonAuthedUserWrapperComponent } from './modules/core/components/non-authed-user-wrapper/non-authed-user-wrapper.component';
+import { AuthExitGuard } from './modules/core/guards/auth-exit.guard';
+import { LoadModulesGuard } from './modules/core/guards/load-modules.guard';
 
 const routes: Routes = [
-  {path: '', canActivate:[AuthGuard], children: [
-      {path: '', redirectTo: 'login', pathMatch: 'full'},
-      {path: 'home', component: HomePageComponent},
+  {
+    path: '', 
+    component: AuthedUserWrapperComponent,
+    canActivate:[AuthGuard], 
+    
+    children: [
+      {
+        path: 'home', 
+        component: HomePageComponent
+      },
       {
         path: 'car', 
+        canLoad: [LoadModulesGuard],
         loadChildren: () => import('./modules/car/car.module').then(m => m.CarModule)
       },
       {
         path: 'user',
+        canLoad: [LoadModulesGuard],
         loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule)
       },
     ],
   },
-  {path: 'reg', component: RegistrationPageComponent},
-  {path: 'login', component: LoginPageComponent},
-  {path: "**", redirectTo:"home", pathMatch: 'full'},
+
+  {
+    path: '',
+    component: NonAuthedUserWrapperComponent,
+    canActivate:[AuthExitGuard], 
+
+    children: [
+      {
+        path: 'reg', 
+        component: RegistrationPageComponent
+      },
+      {
+        path: 'login', 
+        component: LoginPageComponent
+      },
+    ]
+  },
+
+  {
+    path: '**',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({

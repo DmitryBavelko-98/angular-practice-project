@@ -12,7 +12,7 @@
         <div class="form-field">
             <mat-form-field appearance="outline">
                 <mat-label>Password</mat-label>
-                <input formControlName="password" id="password" matInput placeholder="Type here">
+                <input formControlName="password" type="password" id="password" matInput placeholder="Type here">
             </mat-form-field>
             <app-validation-error [control]="getPassControl('password')" controlName="Password"></app-validation-error>
         </div>
@@ -20,14 +20,15 @@
         <div class="form-field">
             <mat-form-field appearance="outline">
                 <mat-label>Confirm password</mat-label>
-                <input formControlName="confirmPassword" id="confirmPassword" matInput placeholder="Type here">
+                <input formControlName="confirmPassword" type="password" id="confirmPassword" matInput placeholder="Type here">
             </mat-form-field>
             <app-validation-error [control]="getPassControl('confirmPassword')" controlName="Confirmation"></app-validation-error>
         </div>
 
-        <mat-error
-         [ngClass]="{show: checkPassGroupValidity()}">
-         Passwords don't match!
-        </mat-error>
+        <h3 class="redirectionMessage">
+            Already have an account? 
+            <a (click)="redirectToLogin()">Sign in</a>
+        </h3>
     </ng-container>
+
 </ng-container>

@@ -1,22 +1,18 @@
 <header>
-    <nav *ngIf="!user$.value">
-        <a routerLink="login" routerLinkActive="active">Sign in</a>
-        <a routerLink="reg" routerLinkActive="active">Sign up</a>
-    </nav>
-    <div class="nav-logged" *ngIf="user$.value">
+    <div class="nav-logged">
         <nav>
             <a routerLink="home" routerLinkActive="active">Home</a>
             <a routerLink="user" routerLinkActive="active">Users</a>
             <a routerLink="user/add" routerLinkActive="active">Add user</a>
             <a routerLink="car" routerLinkActive="active">Cars</a>
         </nav>
-
+    
         <div class="nav-logged_controls">
             <div class="nav-logged_data">
                 <img src="assets/img/user/avatar_m.png" alt="user-image">
-                <span>{{ user$ | async }}</span>
+                <span>{{ userName }}</span>
             </div>
-
+    
             <app-menu class="nav-logged_exit">
                 <button (click)="logoutUser()" mat-menu-item>
                     <mat-icon>logout</mat-icon>

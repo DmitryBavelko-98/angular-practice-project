@@ -1,8 +1,9 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { AuthorizationService } from '../../services/authorization.service';
-import { matchPasswords } from '../../services/match-password-validator';
-import { uniqueUser } from '../../services/unique-user-validator';
+import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthorizationService } from 'src/app/modules/shared/services/authorization.service';
+import { matchValues } from 'src/app/modules/shared/services/match-values-validator';
+import { uniqueUser } from 'src/app/modules/shared/services/unique-user-validator';
 
 @Component({
   selector: 'app-registration-form',
@@ -14,7 +15,11 @@ export class RegistrationFormComponent implements OnInit {
 
   regGroup!: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthorizationService) {
+  constructor(
+    private fb: FormBuilder, 
+    private authService: AuthorizationService,
+    private router: Router
+  ) {
     this.regGroup = this.fb.group({
       userName: ['', {
         validators: [Validators.required],
@@ -27,23 +32,16 @@ export class RegistrationFormComponent implements OnInit {
       }, { updateOn: 'blur' })
     });
 
-    this.passGroup.setValidators(matchPasswords());
+    const passwordControl = this.passGroup.get('password') as AbstractControl;
+    const confirmationControl = this.passGroup.get('confirmPassword')  as AbstractControl;
+
+    this.passGroup.setValidators(matchValues(passwordControl, confirmationControl));
   }
 
   ngOnInit(): void {
     this.formReady.emit(this.regGroup);
   }
 
-  checkPassGroupValidity(): boolean {
-    if (this.passGroup.hasError('passwordsDontMatch') 
-    && this.getPassControl('confirmPassword').dirty 
-    && this.getPassControl('password').dirty) {
-      return true;
-    } 
-
-    return false;
-  }
-  
   getRegControl(controlName: string): FormControl {
     return <FormControl>this.regGroup.get(controlName);
   }
@@ -54,5 +52,9 @@ export class RegistrationFormComponent implements OnInit {
 
   get passGroup() {
     return this.regGroup.get('passGroup') as FormGroup;
+  }
+
+  redirectToLogin(): void {
+    this.router.navigate(['login']);
   }
 }

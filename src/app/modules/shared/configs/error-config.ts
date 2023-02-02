@@ -10,4 +10,5 @@ export const errorConfig: ErrorMessage = {
     gmail: (name): string => `${name} should end with @gmail.com`,
     emailExists: (): string => `User with this email already exists`,
     userExists: (): string => `User with this name already exists`,
+    valuesDontMatch: (name): string => `${name} doesn't matches!`,
 };

@@ -11,10 +11,15 @@
     <div class="form-field">
         <mat-form-field appearance="outline">
             <mat-label>Password</mat-label>
-            <input formControlName="password" id="password" matInput placeholder="Type here">
+            <input formControlName="password" type="password" id="password" matInput placeholder="Type here">
         </mat-form-field>
         <app-validation-error [control]="getControl('password')" controlName="Password"></app-validation-error>
     </div>
+
+    <h3 class="redirectionMessage">
+        Don't have an account yet? 
+        <a (click)="redirectToSignUp()">Sign up</a>
+    </h3>
     
     <mat-error>Incorrect login or password!</mat-error>
     

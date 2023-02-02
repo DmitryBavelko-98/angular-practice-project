@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
-import { AuthorizationService } from '../../services/authorization.service';
+import { AuthorizationService } from 'src/app/modules/shared/services/authorization.service';
 
 @Component({
   selector: 'app-login-page',
