@@ -1,7 +1,28 @@
 <header>
-    <nav>
-        <a routerLink="users" routerLinkActive="active">Users</a>
-        <a routerLink="cars" routerLinkActive="active">Cars</a>
-        <a routerLink="add-user" routerLinkActive="active">Add user</a>
+    <nav *ngIf="!user$.value">
+        <a routerLink="login" routerLinkActive="active">Sign in</a>
+        <a routerLink="reg" routerLinkActive="active">Sign up</a>
     </nav>
+    <div class="nav-logged" *ngIf="user$.value">
+        <nav>
+            <a routerLink="home" routerLinkActive="active">Home</a>
+            <a routerLink="user" routerLinkActive="active">Users</a>
+            <a routerLink="user/add" routerLinkActive="active">Add user</a>
+            <a routerLink="car" routerLinkActive="active">Cars</a>
+        </nav>
+
+        <div class="nav-logged_controls">
+            <div class="nav-logged_data">
+                <img src="assets/img/user/avatar_m.png" alt="user-image">
+                <span>{{ user$ | async }}</span>
+            </div>
+
+            <app-menu class="nav-logged_exit">
+                <button (click)="logoutUser()" mat-menu-item>
+                    <mat-icon>logout</mat-icon>
+                    <span>Sign out</span>
+                </button>
+            </app-menu>
+        </div>
+    </div>
 </header>

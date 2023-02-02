@@ -15,6 +15,9 @@ export class DataChangesGuard implements CanDeactivate<CanComponentDeactivate> {
     currentRoute: ActivatedRouteSnapshot,
     currentState: RouterStateSnapshot,
     nextState?: RouterStateSnapshot): Observable<boolean> | boolean {
-      return component.canDeactivate() ? true : this.dialogService.warn().afterClosed();
+
+      return component.canDeactivate() 
+      ? true 
+      : this.dialogService.warn().afterClosed();
     }
 }

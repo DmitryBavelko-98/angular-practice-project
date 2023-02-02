@@ -16,6 +16,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SearchFieldComponent } from './components/search-field/search-field.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatMenuModule } from '@angular/material/menu';
+import { MenuComponent } from './components/menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     UniqueEmailValidatorDirective,
     AddressesListComponent,
     AddressFormComponent,
-    SearchFieldComponent
+    SearchFieldComponent,
+    MenuComponent,
   ],
   imports: [
     CommonModule,
@@ -37,6 +40,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     ReactiveFormsModule,
     MatProgressSpinnerModule,
     MatPaginatorModule,
+    MatMenuModule
   ],
   exports: [
     CardComponent,
@@ -47,16 +51,18 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatButtonModule,
     MatIconModule,
     MatInputModule,
+    MatMenuModule,
     MatProgressSpinnerModule,
     MatPaginatorModule,
     ValidationErrorComponent,
     ReactiveFormsModule,
-    SearchFieldComponent
+    SearchFieldComponent,
+    MenuComponent
   ],
   providers: [
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}},
     GmailValidatorDirective,
-    UniqueEmailValidatorDirective
+    UniqueEmailValidatorDirective,
   ]
 })
 export class SharedModule { }

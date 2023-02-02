@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import IUser from '../../models/user';
 
 const DEFAULT_USER_IMG = 'assets/img/user/default_avatar.png';
@@ -15,10 +16,16 @@ export class UserListItemComponent {
   @Output() infoRequested = new EventEmitter<string>();
   @Output() userSaved = new EventEmitter<string>();
 
+  constructor(private router: Router) {}
+
   defaultImage: string = DEFAULT_USER_IMG;
 
   likeItem(): void {
     this.isLiked.emit();
+  }
+
+  navigateToUser(id: string): void {
+    this.router.navigate(['user/edit', id])
   }
 
   requestUserInfo(userId: string): void {

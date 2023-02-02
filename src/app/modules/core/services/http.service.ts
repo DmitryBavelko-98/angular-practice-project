@@ -4,12 +4,13 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { GetParams } from '../models/get-params';
 import { HttpServiceHeaders } from '../models/http-service-headers';
+import { LoggerService } from './logger.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private logger: LoggerService) { }
 
   get(url: string, params?: GetParams, headers?: HttpServiceHeaders): Observable<any> {
     const options = this.setRequestOptions(params, headers);
@@ -43,10 +44,9 @@ export class HttpService {
 
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
-      console.error('An error occurred:', error.error);
+      this.logger.error(`An error occurred: ${error.error}`);
     } else {
-      console.error(
-        `Backend returned code ${error.status}, body was: `, error.error);
+      this.logger.error(`Backend returned code ${error.status}, body was: ${error.error}`);
     }
     return throwError(() => new Error('Something bad happened; please try again later.'));
   }

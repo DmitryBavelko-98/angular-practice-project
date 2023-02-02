@@ -21,7 +21,7 @@
     </div>
 
     <div class="card-controls">
-        <a class="edit-icon" [routerLink]="['edit-user', user.id]">
+        <a class="edit-icon" (click)="navigateToUser(user.id)">
             <mat-icon>edit</mat-icon>
         </a>
     

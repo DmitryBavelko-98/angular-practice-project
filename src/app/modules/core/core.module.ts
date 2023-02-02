@@ -5,25 +5,25 @@ import { HeaderComponent } from './components/header/header.component';
 import { ConfirmPopupComponent } from './components/confirm-popup/confirm-popup.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
-import { NgxPaginationModule } from 'ngx-pagination';
+import { HomePageComponent } from './pages/home-page/home-page.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     ConfirmPopupComponent,
+    HomePageComponent,
   ],
   imports: [
     CommonModule,
     AppRoutingModule,
+    SharedModule,
     MatDialogModule,
     HttpClientModule,
-    NgxPaginationModule,
   ],
   exports: [
     MatDialogModule,
-    AppRoutingModule,
     HttpClientModule,
-    NgxPaginationModule,
     HeaderComponent,
     ConfirmPopupComponent,
   ]

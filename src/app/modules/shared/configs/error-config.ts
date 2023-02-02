@@ -9,4 +9,5 @@ export const errorConfig: ErrorMessage = {
     email: (name): string => `Wrong format of ${name}`,
     gmail: (name): string => `${name} should end with @gmail.com`,
     emailExists: (): string => `User with this email already exists`,
+    userExists: (): string => `User with this name already exists`,
 };

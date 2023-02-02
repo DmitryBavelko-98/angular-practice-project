@@ -1,8 +1,7 @@
 import { Directive } from '@angular/core';
 import { AbstractControl, AsyncValidatorFn, NG_ASYNC_VALIDATORS, ValidationErrors } from '@angular/forms';
-import { Observable, map, of, delay } from 'rxjs';
+import { Observable, map, delay } from 'rxjs';
 import { UserApiService } from '../../user/services/user-api.service';
-import { UserService } from '../../user/services/user.service'; 
 
 @Directive({
   selector: '[appUniqueEmailValidator]',

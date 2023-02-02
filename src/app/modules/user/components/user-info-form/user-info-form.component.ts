@@ -19,30 +19,32 @@ export class UserInfoFormComponent implements OnInit {
   imageName!: string;
   emailControl!: FormControl;
 
+  userFormGroup!: FormGroup;
+
   constructor(
     private fb: FormBuilder,
     private gmailValidator: GmailValidatorDirective,
     private uniqueEmailValidator: UniqueEmailValidatorDirective
-  ) {}
+  ) {
+    this.userFormGroup =this.fb.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      age: [15, [Validators.required, Validators.min(15), Validators.max(100)]],
+      email: ['', {
+        validators: [Validators.required, Validators.email, this.gmailValidator],
+        asyncValidators: [this.uniqueEmailValidator.validate(null)],
+        updateOn: 'blur'
+      }],
+      company: ['', Validators.maxLength(35)],
+      department: ['', Validators.minLength(6)],
+      gender: [true, Validators.required],
+      imageUrl: [''],
+    });
+  }
 
   ngOnInit(): void {
     this.formReady.emit(this.userFormGroup);
   }
-
-  userFormGroup = this.fb.group({
-    firstName: ['', Validators.required],
-    lastName: ['', Validators.required],
-    age: [15, [Validators.required, Validators.min(15), Validators.max(100)]],
-    email: ['', {
-      validators: [Validators.required, Validators.email, this.gmailValidator],
-      asyncValidators: [this.uniqueEmailValidator.validate(null)],
-      updateOn: 'blur'
-    }],
-    company: ['', Validators.maxLength(35)],
-    department: ['', Validators.minLength(6)],
-    gender: [true, Validators.required],
-    imageUrl: [''],
-  });
   
   setImageUrl(event: Event): void {
     const target = event.target as HTMLInputElement;
