@@ -7,7 +7,7 @@ export default function transformUserData(user: IResponseUser): IUser {
       firstName: `${user.name.title} ${user.name.first}`,
       lastName:  `${user.name.last}`,
       age: user.dob.age,
-      gender: (user.gender === "male") ? true : false,
+      gender: user.gender,
       department: 'Marketing',
       company: 'Google',
       email: user.email,

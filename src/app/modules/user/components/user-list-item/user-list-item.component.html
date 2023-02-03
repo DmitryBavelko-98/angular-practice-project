@@ -1,22 +1,20 @@
 <app-card
     [isItemLiked]="isItemLiked"
     (isLiked)="likeItem()">
-    <span class="title">
-        {{ user.firstName }} {{ user.lastName }} <span>Age: <strong>{{ user.age }}</strong></span>
-    </span>
+    <div class="title">{{ user | fullName}}</div>
     
     <img mat-card-image [src]="user.imageUrl ? user.imageUrl : defaultImage" alt="User photo">
     
     <div class="content">
+        <div>Age: <strong>{{ user.age }}</strong></div>
         <div>ID: {{ user.id }}</div>
-        <div>Gender: {{ user.gender ? 'male' : 'female' }}</div>
+        <div>Gender: {{ user.gender }}</div>
         <div>Company: {{ user.company }}</div>
         <div>Department: {{ user.department }}</div>
         <div>Email: {{ user.email }}</div>
         <div>Addresses:</div>
         <div *ngFor="let address of user.addresses; let i = index">
-            <div>{{i + 1}}. Address: {{address.addressLine}}</div>
-            <div *ngIf="address.city">City: {{address.city}} ZIP: {{address.zip}}</div>              
+            <div>{{ address | addressPipe: i }}</div>
         </div>
     </div>
 

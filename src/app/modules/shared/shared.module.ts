@@ -18,6 +18,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatMenuModule } from '@angular/material/menu';
 import { MenuComponent } from './components/menu/menu.component';
+import { FullNamePipe } from './pipes/full-name.pipe';
+import { AddressPipe } from './pipes/address.pipe';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { MenuComponent } from './components/menu/menu.component';
     AddressFormComponent,
     SearchFieldComponent,
     MenuComponent,
+    FullNamePipe,
+    AddressPipe,
   ],
   imports: [
     CommonModule,
@@ -57,7 +61,9 @@ import { MenuComponent } from './components/menu/menu.component';
     ValidationErrorComponent,
     ReactiveFormsModule,
     SearchFieldComponent,
-    MenuComponent
+    MenuComponent,
+    FullNamePipe,
+    AddressPipe
   ],
   providers: [
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}},
