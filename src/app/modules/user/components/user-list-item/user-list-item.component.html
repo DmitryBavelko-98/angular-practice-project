@@ -1,7 +1,12 @@
 <app-card
     [isItemLiked]="isItemLiked"
     (isLiked)="likeItem()">
-    <div class="title">{{ user | fullName}}</div>
+    <div class="title">
+        <span>{{ user | fullName}}</span>
+        <a class="details" (click)="navgateToUserDetails(user.id)">
+            <mat-icon>info</mat-icon>
+        </a>
+    </div>
     
     <img mat-card-image [src]="user.imageUrl ? user.imageUrl : defaultImage" alt="User photo">
     

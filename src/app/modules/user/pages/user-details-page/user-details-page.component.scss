@@ -1,0 +1,28 @@
+.user-details {
+    margin: 0 auto;
+    padding: 20px;
+    width: 700px;
+    height: 300px;
+
+    &_title {
+        text-align: center;
+        font-size: 3rem;
+    }
+
+    a {
+        text-decoration: none;
+        font-size: 2rem;
+    }
+
+    nav {
+        margin: 0 0 30px 0;
+    }
+
+    &_info {
+        padding: 20px;
+        margin: 0 auto;
+        width: 80%;
+        height: 250px;
+        background-color: #fff;
+    }
+}

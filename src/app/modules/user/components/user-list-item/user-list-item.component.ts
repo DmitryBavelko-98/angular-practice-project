@@ -24,6 +24,10 @@ export class UserListItemComponent {
     this.isLiked.emit();
   }
 
+  navgateToUserDetails(id: string): void {
+    this.router.navigate(['user/details', id])
+  }
+
   navigateToUser(id: string): void {
     this.router.navigate(['user/edit', id])
   }

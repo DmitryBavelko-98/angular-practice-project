@@ -1,0 +1,13 @@
+<div class="user-details">
+    <h2 class="user-details_title">{{ user | fullName }}</h2>
+
+    <nav mat-stretch-tabs animationDuration="1000ms" mat-tab-nav-bar>
+        <a mat-tab-link (click)="navigateToCompanyInfo()" label="Company info">Company info</a>
+        <a mat-tab-link (click)="navigateToPersonalInfo()" label="Personal info">Personal info</a>
+        <a mat-tab-link (click)="navigateToContacts()" label="Contacts"> Contacts </a>
+    </nav>
+
+    <div class="user-details_info">
+        <router-outlet></router-outlet>
+    </div>
+</div>
