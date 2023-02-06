@@ -15,7 +15,7 @@ export class LoadModulesGuard implements CanLoad {
   canLoad(
     route: Route,
     segments: UrlSegment[]): Observable<boolean> | boolean {
-      if (this.authService.isAuthorized) {
+      if (this.authService.isUserAuthorized) {
         return true;
       } 
 

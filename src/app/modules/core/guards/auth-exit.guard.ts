@@ -15,7 +15,7 @@ export class AuthExitGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | boolean {
-      if (this.authService.isAuthorized) {
+      if (this.authService.isUserAuthorized) {
         this.router.navigate(['/home']);
         return false;
       } 
