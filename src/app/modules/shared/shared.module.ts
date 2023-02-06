@@ -20,6 +20,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MenuComponent } from './components/menu/menu.component';
 import { FullNamePipe } from './pipes/full-name.pipe';
 import { AddressPipe } from './pipes/address.pipe';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { AddressPipe } from './pipes/address.pipe';
     ReactiveFormsModule,
     MatProgressSpinnerModule,
     MatPaginatorModule,
-    MatMenuModule
+    MatMenuModule,
+    MatTabsModule
   ],
   exports: [
     CardComponent,
@@ -58,12 +60,13 @@ import { AddressPipe } from './pipes/address.pipe';
     MatMenuModule,
     MatProgressSpinnerModule,
     MatPaginatorModule,
+    MatTabsModule,
     ValidationErrorComponent,
     ReactiveFormsModule,
     SearchFieldComponent,
     MenuComponent,
     FullNamePipe,
-    AddressPipe
+    AddressPipe,
   ],
   providers: [
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}},

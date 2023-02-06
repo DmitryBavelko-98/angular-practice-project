@@ -1,5 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
-import { NavigationEnd, Router, Event } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 import { filter, Subject, takeUntil } from 'rxjs';
 import { LoggerService } from './modules/core/services/logger.service';
 
@@ -12,12 +13,16 @@ export class AppComponent implements OnDestroy {
   title = 'angular-practice-project';
   destroy$ = new Subject<void>();
 
-  constructor(private logger: LoggerService, private router: Router) {
+  constructor(
+    private logger: LoggerService, 
+    private router: Router,
+    private titleService: Title
+  ) {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd), 
       takeUntil(this.destroy$)
     )
-    .subscribe((e: Event) => this.logger.log(`You're on ${(e as NavigationEnd).url.slice(1)} page`));
+    .subscribe(() => setTimeout(() => this.logger.log(`You're on ${this.titleService.getTitle()} page`)));
   }
 
   ngOnDestroy(): void {

@@ -1,12 +1,13 @@
 import { 
   Component, 
+  OnDestroy, 
   OnInit, 
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router'
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import IUser from '../../models/user';
-import { Observable, merge, Subscription, take, takeWhile } from 'rxjs';
+import { Observable, merge, take, Subject, takeUntil } from 'rxjs';
 import { UserApiService } from '../../services/user-api.service';
 
 @Component({
@@ -14,13 +15,12 @@ import { UserApiService } from '../../services/user-api.service';
   templateUrl: './edit-user-page.component.html',
   styleUrls: ['./edit-user-page.component.scss']
 })
-export class EditUserPageComponent implements OnInit {
+export class EditUserPageComponent implements OnInit, OnDestroy {
   isFormSaved: boolean = false;
   id!: string;
   form!: FormGroup;
   user!: IUser;
-  emailSubscription!: Subscription;
-  componentExists: boolean = true;
+  destroy$ = new Subject<void>();
 
   constructor(
     private router: Router,
@@ -43,6 +43,10 @@ export class EditUserPageComponent implements OnInit {
 
         this.loadUser();
       });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
   }
 
   get addresses(): FormArray {
@@ -95,11 +99,11 @@ export class EditUserPageComponent implements OnInit {
     const lastName = this.form.controls['user'].get('lastName');
     const email = this.form.controls['user'].get('email')
 
-    this.emailSubscription = merge(
+    merge(
       firstName?.valueChanges as Observable<string>,
       lastName?.valueChanges as Observable<string>
     )
-    .pipe((takeWhile(() => this.componentExists)))
+    .pipe(takeUntil(this.destroy$))
     .subscribe(() => email!.setValue(`${firstName?.value}${lastName?.value}` + '@gmail.com'));
   }
 

@@ -6,6 +6,7 @@ import { CarPageComponent } from './pages/car-page/car-page.component';
 const routes: Routes = [
   {
     path: '',
+    title: 'Cars',
     component: CarPageComponent
   }
 ];

@@ -18,6 +18,7 @@ const routes: Routes = [
     children: [
       {
         path: 'home', 
+        title: 'Home',
         component: HomePageComponent
       },
       {
@@ -41,10 +42,12 @@ const routes: Routes = [
     children: [
       {
         path: 'reg', 
+        title: 'Registration',
         component: RegistrationPageComponent
       },
       {
         path: 'login', 
+        title: 'Login',
         component: LoginPageComponent
       },
     ]

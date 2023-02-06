@@ -8,7 +8,7 @@ import { users } from '../../authorization/mocks/users';
 })
 export class AuthorizationService {
   user$ = new BehaviorSubject<string>('');
-  isAuthorized = !!JSON.parse(localStorage.getItem('user') as string);
+  isUserAuthorized = !!JSON.parse(localStorage.getItem('user') as string);
 
   constructor() {
     this.user$.next(localStorage.getItem('user') as string);
@@ -27,8 +27,8 @@ export class AuthorizationService {
   loginUser(userCred: IUserCredentials): Observable<boolean> {
     for (let cred of users) {
       if (cred.userName === userCred.userName && cred.password === userCred.password) {
+        this.isUserAuthorized = true;
         this.setCurrentUser(userCred);
-        this.isAuthorized = true;
         return of(true).pipe(delay(500));
       }
     }
@@ -37,13 +37,13 @@ export class AuthorizationService {
   }
 
   logoutUser(): Observable<string> {
-    this.setCurrentUser('');
-    this.isAuthorized = false;
+    this.isUserAuthorized = false;
+    this.setCurrentUser(null);
 
     return this.getCurrentUser();
   }
 
-  setCurrentUser(user: IUserCredentials | string): void {
+  setCurrentUser(user: IUserCredentials | null): void {
     localStorage.setItem('user', JSON.stringify(user));
 
     this.user$.next(localStorage.getItem('user') as string);
