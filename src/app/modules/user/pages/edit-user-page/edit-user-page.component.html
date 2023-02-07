@@ -6,7 +6,7 @@
     <div class="forms">
         <div class="user-info">
             <h2>User info</h2>
-            <app-user-info-form [userId]="user.id || null" (formReady)="addFormControl($event, 'user')"></app-user-info-form>
+            <app-user-info-form [userId]="user?.id || null" (formReady)="addFormControl($event, 'user')"></app-user-info-form>
         </div>
 
         <div class="user-addresses">

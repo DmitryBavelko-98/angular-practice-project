@@ -1,2 +1,2 @@
-<h3>Email: {{ userData.email }}</h3>
-<h3 *ngFor="let address of userData.addresses; let i = index"  >Address: {{ address | addressPipe: i}}</h3>
+<h3>Email: {{ userData?.email }}</h3>
+<h3 *ngFor="let address of userData?.addresses; let i = index"  >Address: {{ address | addressPipe: i}}</h3>

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { take } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { take, mergeMap } from 'rxjs';
 import IUser from '../../models/user';
-import { UserApiService } from '../../services/user-api.service';
+import { UserDetailsPageService } from '../../services/user-details-page-service.service';
 
 @Component({
   selector: 'app-user-details-page',
@@ -10,58 +10,33 @@ import { UserApiService } from '../../services/user-api.service';
   styleUrls: ['./user-details-page.component.scss']
 })
 export class UserDetailsPageComponent implements OnInit {
-  id!: string;
-  user!: IUser;
+  user!: IUser | null;
 
-  constructor(
-    private router: Router,
-    private activateRoute: ActivatedRoute,
-    private userApi: UserApiService,
-  ) {}
+  // navLinks = [
+  //   {link: 'personal-info', label: 'Personal info'},
+  //   {link: 'company-info', label: 'Company info'},
+  //   {link: 'contacts', label: 'Contacts'},
+  // ];
+
+  constructor(private activateRoute: ActivatedRoute, private userDetails: UserDetailsPageService) {}
 
   ngOnInit(): void {
     this.activateRoute.params
-      .pipe(take(1))
-      .subscribe(params => {
-        this.id = params['id'];
-
-        this.loadUser();
-      });
+      .pipe(
+        mergeMap(params => {
+          return this.userDetails.setCurrentUser(params['id'])
+        }),
+        take(1)
+      )
+      .subscribe(user => this.user = user);
   }
 
-  loadUser(): void {
-    this.userApi.getUserById(this.id)
-    .pipe(take(1))
-    .subscribe(user => {
-      this.user = user;
-      this.navigateToPersonalInfo();
-    });
-  }
+  
+  get routes() {
+    if (this.activateRoute.routeConfig) {
+      return this.activateRoute.routeConfig.children?.slice(1);
+    }
 
-  navigateToCompanyInfo(): void {
-    const {company, department} = this.user;
-
-    this.router.navigate(
-      [`user/details/${this.user.id}/company-info`], 
-      { queryParams: { company, department } }
-    );
-  }
-
-  navigateToPersonalInfo(): void {
-    const {firstName, lastName, age, id, gender} = this.user;
-
-    this.router.navigate(
-      [`user/details/${this.user.id}/personal-info`], 
-      { queryParams: { firstName, lastName, age, id, gender } }
-    );
-  }
-
-  navigateToContacts(): void {
-    const {email, addresses} = this.user;
-
-    this.router.navigate(
-      [`user/details/${this.user.id}/contacts`], 
-      { queryParams: { email, addresses: JSON.stringify(addresses) } }
-    );
+    return [];
   }
 }

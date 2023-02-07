@@ -32,6 +32,11 @@ export class UserApiService {
   }
 
   getUserById(id: string): Observable<IUser> {
+    return this.getUsers()
+      .pipe(
+        map(users => users.find(user => user.id === id))
+      ) as Observable<IUser>;
+
     return this.httpService.get(environment.apiURL, {id})
       .pipe(
         map((res) => transformUserData(res.body.results[0]))

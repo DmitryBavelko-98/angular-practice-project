@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DataChangesGuard } from '../core/guards/data-changes.guard';
-import { HomePageComponent } from '../core/pages/home-page/home-page.component';
 import { UserCompanyInfoComponent } from './components/user-company-info/user-company-info.component';
 import { UserContactsInfoComponent } from './components/user-contacts-info/user-contacts-info.component';
 import { UserPersonalInfoComponent } from './components/user-personal-info/user-personal-info.component';
@@ -35,18 +34,23 @@ const routes: Routes = [
 
     children: [
       {
-        path: 'company-info', 
-        title: 'User company info',
-        component: UserCompanyInfoComponent
+        path: '', 
+        redirectTo: 'personal-info',
+        pathMatch: 'full'
       },
       {
         path: 'personal-info', 
-        title: 'User personal info',
+        title: 'Personal info',
         component: UserPersonalInfoComponent
       },
       {
+        path: 'company-info', 
+        title: 'Company info',
+        component: UserCompanyInfoComponent
+      },
+      {
         path: 'contacts', 
-        title: 'User contacts',
+        title: 'Contacts',
         component: UserContactsInfoComponent
       },
     ]

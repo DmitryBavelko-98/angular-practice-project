@@ -28,7 +28,7 @@ export class AuthorizationService {
     for (let cred of users) {
       if (cred.userName === userCred.userName && cred.password === userCred.password) {
         this.isUserAuthorized = true;
-        this.setCurrentUser(userCred);
+        this.setCurrentUser(cred);
         return of(true).pipe(delay(500));
       }
     }
@@ -38,12 +38,12 @@ export class AuthorizationService {
 
   logoutUser(): Observable<string> {
     this.isUserAuthorized = false;
-    this.setCurrentUser(null);
+    this.setCurrentUser('');
 
     return this.getCurrentUser();
   }
 
-  setCurrentUser(user: IUserCredentials | null): void {
+  setCurrentUser(user: IUserCredentials | string): void {
     localStorage.setItem('user', JSON.stringify(user));
 
     this.user$.next(localStorage.getItem('user') as string);

@@ -1,13 +1,19 @@
-<div class="user-details">
+<div class="user-details" *ngIf="user">
     <h2 class="user-details_title">{{ user | fullName }}</h2>
 
-    <nav mat-stretch-tabs animationDuration="1000ms" mat-tab-nav-bar>
-        <a mat-tab-link (click)="navigateToCompanyInfo()" label="Company info">Company info</a>
-        <a mat-tab-link (click)="navigateToPersonalInfo()" label="Personal info">Personal info</a>
-        <a mat-tab-link (click)="navigateToContacts()" label="Contacts"> Contacts </a>
+    <nav mat-stretch-tabs animationDuration="500ms" mat-tab-nav-bar>
+        <a mat-tab-link
+        *ngFor="let route of routes"
+        [routerLink]="route.path"
+        routerLinkActive #rla="routerLinkActive"
+        [active]="rla.isActive">
+            {{ route.title }}
+        </a>
     </nav>
 
     <div class="user-details_info">
         <router-outlet></router-outlet>
     </div>
 </div>
+
+<mat-spinner *ngIf="!user"></mat-spinner>
