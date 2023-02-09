@@ -3,10 +3,12 @@ import { UserService } from '../../services/user.service';
 import { FavoritesService } from 'src/app/modules/core/services/favorites.service';
 import { FavoriteTypes } from 'src/app/modules/core/models/favorite-types';
 import IUser from '../../models/user';
-import { catchError, concatMap, exhaustMap, finalize, mergeMap, Observable, Subject, switchMap, take, takeUntil, takeWhile, throwError } from 'rxjs';
+import { concatMap, exhaustMap, finalize, mergeMap, Observable, Subject, switchMap, take, takeUntil } from 'rxjs';
 import { UserApiService } from '../../services/user-api.service';
 import { MatPaginator } from '@angular/material/paginator';
-import { paginatorConfig } from 'src/app/modules/shared/configs/paginator-config';
+import { PAGINATOR_PAGE_SIZE } from 'src/app/modules/shared/configs/paginator-config';
+import { PAGINTOR_LENGTH } from 'src/app/modules/shared/configs/paginator-config';
+import { PAGINTOR_OPTIONS } from 'src/app/modules/shared/configs/paginator-config';
 import { LoggerService } from 'src/app/modules/core/services/logger.service';
 
 @Component({
@@ -19,7 +21,9 @@ export class UsersPageComponent implements OnInit, OnDestroy {
 
   users: IUser[] = [];
   favoriteUsers: IUser[] = [];
-  paginatorConf = paginatorConfig;
+  paginatorPageSize = PAGINATOR_PAGE_SIZE;
+  paginatorLength = PAGINTOR_LENGTH;
+  paginatorOptions = PAGINTOR_OPTIONS;
   searchParam: string = '';
 
   loading: boolean = false;
@@ -54,7 +58,7 @@ export class UsersPageComponent implements OnInit, OnDestroy {
     this.loading = true;
 
     return this.userApi
-      .getUsers(this.searchParam, this.paginator.pageSize, this.paginator.pageIndex + 1)
+      .getUsers(this.paginator.pageSize, this.paginator.pageIndex + 1, this.searchParam)
       .pipe(finalize(() => this.loading = false));
   }
 

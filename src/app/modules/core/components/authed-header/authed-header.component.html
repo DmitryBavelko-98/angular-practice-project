@@ -2,9 +2,13 @@
     <div class="nav-logged">
         <nav>
             <a routerLink="home" routerLinkActive="active">Home</a>
-            <a routerLink="user" routerLinkActive="active">Users</a>
-            <a routerLink="user/add" routerLinkActive="active">Add user</a>
-            <a routerLink="car" routerLinkActive="active">Cars</a>
+            <a routerLink="car" routerLinkActive="active">Cars</a>            
+            <a #menuTrigger [matMenuTriggerFor]="menu">Users</a>
+            <mat-menu #menu>
+                <button mat-menu-item routerLink="user">Users List</button>
+                <button mat-menu-item routerLink="user/tables">User tables</button>
+                <button mat-menu-item routerLink="user/add">Add user</button>
+            </mat-menu>
         </nav>
     
         <div class="nav-logged_controls">

@@ -21,6 +21,8 @@ import { MenuComponent } from './components/menu/menu.component';
 import { FullNamePipe } from './pipes/full-name.pipe';
 import { AddressPipe } from './pipes/address.pipe';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,9 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatProgressSpinnerModule,
     MatPaginatorModule,
     MatMenuModule,
-    MatTabsModule
+    MatTabsModule,
+    MatTableModule,
+    MatSortModule
   ],
   exports: [
     CardComponent,
@@ -61,6 +65,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatProgressSpinnerModule,
     MatPaginatorModule,
     MatTabsModule,
+    MatTableModule,
+    MatSortModule,
     ValidationErrorComponent,
     ReactiveFormsModule,
     SearchFieldComponent,

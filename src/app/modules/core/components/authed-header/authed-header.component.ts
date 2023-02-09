@@ -20,6 +20,10 @@ export class AuthedHeaderComponent implements OnInit {
       .subscribe(user => this.userName = JSON.parse(user).userName);
   }
 
+  a(elem: any) {
+    elem.classList.add('active');
+  }
+
   logoutUser(): void {
     this.authService.logoutUser()
       .pipe(takeUntil(this.destroy$))

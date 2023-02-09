@@ -13,6 +13,9 @@ import { UserDetailsPageComponent } from './pages/user-details-page/user-details
 import { UserCompanyInfoComponent } from './components/user-company-info/user-company-info.component';
 import { UserPersonalInfoComponent } from './components/user-personal-info/user-personal-info.component';
 import { UserContactsInfoComponent } from './components/user-contacts-info/user-contacts-info.component';
+import { UserTablesPageComponent } from './pages/user-tables-page/user-tables-page.component';
+import { ClientPaginationTableComponent } from './components/client-pagination-table/client-pagination-table.component';
+import { ServerPaginationTableComponent } from './components/server-pagination-table/server-pagination-table.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +29,9 @@ import { UserContactsInfoComponent } from './components/user-contacts-info/user-
     UserCompanyInfoComponent,
     UserPersonalInfoComponent,
     UserContactsInfoComponent,
+    UserTablesPageComponent,
+    ClientPaginationTableComponent,
+    ServerPaginationTableComponent,
   ],
   imports: [
     CommonModule,

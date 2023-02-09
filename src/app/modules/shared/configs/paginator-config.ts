@@ -1,5 +1,3 @@
-export const paginatorConfig = {
-    pageSize: 9,
-    length: 1000,
-    pageSizeOptions: [9, 18, 45]
-}
+export const PAGINATOR_PAGE_SIZE = 10;
+export const PAGINTOR_LENGTH = 1000;
+export const PAGINTOR_OPTIONS = [10, 20, 50];
