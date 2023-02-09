@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { delay, find, from, map, Observable, of } from 'rxjs';
+import { delay, map, Observable } from 'rxjs';
 import { HttpService } from '../../core/services/http.service';
 import IUser from '../models/user';
 import IResponseUser from '../models/response-user';
 import IUserForm from '../models/user-form';
 import transformUserData from '../utils/transformUserData';
 import generateUserId from '../utils/generateUserId';
+import { sortUsers } from '../utils/sortUsers';
 import { LoggerService } from '../../core/services/logger.service';
 import { createRandomDelay } from '../utils/createRandomDelay';
+import { ISortOptions } from '../models/sort-options';
+import { filterUsersByName } from '../utils/filterUsersByName';
 
 @Injectable({
   providedIn: 'root'
@@ -22,12 +25,18 @@ export class UserApiService {
     return this.users;
   }
 
-  getUsers(param: string = '', results: number = 9, page: number = 1): Observable<IUser[]> {
+  getUsers(results: number = 10, page: number = 1, param: string = '', sortOptions: ISortOptions = {}): Observable<IUser[]> {
     const filter = param.toLowerCase();
+    const sortData = JSON.stringify(sortOptions);
 
-    return this.httpService.get(environment.apiURL, {filter, page, results})
+    return this.httpService.get(environment.apiURL, { page, results, filter, sortData })
       .pipe(
-        map((res) => this.users = res.body.results.map((user: IResponseUser) => transformUserData(user))),
+        map(res => {
+          return this.users = res.body.results
+            .map((user: IResponseUser) => transformUserData(user))
+            .filter((user: IUser) => filterUsersByName(user, filter))
+            .sort((first: IUser, second: IUser) => sortUsers(first, second, sortOptions));
+        }),
       );
   }
 
@@ -37,10 +46,10 @@ export class UserApiService {
         map(users => users.find(user => user.id === id))
       ) as Observable<IUser>;
 
-    return this.httpService.get(environment.apiURL, {id})
-      .pipe(
-        map((res) => transformUserData(res.body.results[0]))
-      );
+    // return this.httpService.get(environment.apiURL, {id})
+    //   .pipe(
+    //     map((res) => transformUserData(res.body.results[0]))
+    //   );
   }
 
   addNewUser(user: IUserForm): Observable<IUser> {
@@ -65,7 +74,7 @@ export class UserApiService {
 
     return this.getUsers()
       .pipe(
-        delay(createRandomDelay()),
+        delay(createRandomDelay(1000, 6000)),
         map(users => users.find((user) => user.id === userId))
       );
   }
@@ -75,7 +84,7 @@ export class UserApiService {
 
     return this.getUsers()
       .pipe(
-        delay(createRandomDelay()),
+        delay(createRandomDelay(1000, 6000)),
         map(() => userId),
       );
   }
