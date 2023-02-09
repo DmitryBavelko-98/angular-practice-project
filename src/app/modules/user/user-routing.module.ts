@@ -8,6 +8,7 @@ import { UserPersonalInfoComponent } from './components/user-personal-info/user-
 import { AddUserPageComponent } from './pages/add-user-page/add-user-page.component';
 import { EditUserPageComponent } from './pages/edit-user-page/edit-user-page.component';
 import { UserDetailsPageComponent } from './pages/user-details-page/user-details-page.component';
+import { UserTablesPageComponent } from './pages/user-tables-page/user-tables-page.component';
 import { UsersPageComponent } from './pages/users-page/users-page.component';
 
 const routes: Routes = [
@@ -20,6 +21,11 @@ const routes: Routes = [
     path: 'add', 
     title: 'Add user',
     component: AddUserPageComponent
+  },
+  {
+    path: 'tables',
+    title: 'User tables',
+    component: UserTablesPageComponent,
   },
   {
     path: 'edit/:id', 

@@ -1,3 +1,3 @@
-export function createRandomDelay (): number {
-    return Math.round(Math.random() * (6000 - 1000) + 1000);
+export function createRandomDelay (start: number, end: number): number {
+    return Math.round(Math.random() * (end - start) + start);
 }
