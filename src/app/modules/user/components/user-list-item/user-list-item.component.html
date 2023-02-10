@@ -19,7 +19,7 @@
         <div>Email: {{ user.email }}</div>
         <div>Addresses:</div>
         <div *ngFor="let address of user.addresses; let i = index">
-            <div>{{ i + 1 }} {{ address | addressPipe: i }}</div>
+            <app-address [index]="i" [address]="address"></app-address>
         </div>
     </div>
 

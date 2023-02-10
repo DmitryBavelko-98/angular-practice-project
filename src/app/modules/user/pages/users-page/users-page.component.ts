@@ -1,12 +1,12 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { FavoritesService } from 'src/app/modules/core/services/favorites.service';
 import { FavoriteTypes } from 'src/app/modules/core/models/favorite-types';
 import IUser from '../../models/user';
-import { concatMap, exhaustMap, finalize, mergeMap, Observable, Subject, switchMap, take, takeUntil } from 'rxjs';
+import { concatMap, exhaustMap, finalize, mergeMap, Observable, Subject, switchMap, take, takeUntil, merge, BehaviorSubject } from 'rxjs';
 import { UserApiService } from '../../services/user-api.service';
 import { MatPaginator } from '@angular/material/paginator';
-import { PAGINATOR_PAGE_SIZE } from 'src/app/modules/shared/configs/paginator-config';
+import { PAGINATOR_DEFAULT_PAGE_SIZE } from 'src/app/modules/shared/configs/paginator-config';
 import { PAGINTOR_LENGTH } from 'src/app/modules/shared/configs/paginator-config';
 import { PAGINTOR_OPTIONS } from 'src/app/modules/shared/configs/paginator-config';
 import { LoggerService } from 'src/app/modules/core/services/logger.service';
@@ -16,23 +16,24 @@ import { LoggerService } from 'src/app/modules/core/services/logger.service';
   templateUrl: './users-page.component.html',
   styleUrls: ['./users-page.component.scss']
 })
-export class UsersPageComponent implements OnInit, OnDestroy {
+export class UsersPageComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('paginator') paginator!: MatPaginator; 
 
   users: IUser[] = [];
   favoriteUsers: IUser[] = [];
-  paginatorPageSize = PAGINATOR_PAGE_SIZE;
+  paginatorPageSize = PAGINATOR_DEFAULT_PAGE_SIZE;
   paginatorLength = PAGINTOR_LENGTH;
   paginatorOptions = PAGINTOR_OPTIONS;
-  searchParam: string = '';
 
   loading: boolean = false;
 
+  searchParam$ = new BehaviorSubject<string>('');
   destroy$ = new Subject<void>();
   refresh$ = new Subject<void>();
   blockingRefresh$ = new Subject<void>();
   userInfo$ = new Subject<string>();
   saveUser$ = new Subject<string>();
+
 
   constructor(
     private userApi: UserApiService,
@@ -42,29 +43,32 @@ export class UsersPageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.uploadUsers();
-      this.initSubjects();
-    });
+    this.initUsers();
+  }
+
+  ngAfterViewInit(): void {
+    this.initSubjects();
+
+    merge(this.paginator.page, this.searchParam$)
+      .pipe(
+        mergeMap(() => this.getCurrentUsers(this.paginator.pageSize, this.paginator.pageIndex, this.searchParam$.value)),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(users => this.setUsers(users));
   }
 
   ngOnDestroy(): void {
     this.destroy$.next();
   }
 
-  private getCurrentUsers(): Observable<IUser[]> {
+  private getCurrentUsers(pageSize: number, pageIndex: number, searchParam: string): Observable<IUser[]> {
     this.users = [];
     this.favoriteUsers = [];
     this.loading = true;
 
     return this.userApi
-      .getUsers(this.paginator.pageSize, this.paginator.pageIndex + 1, this.searchParam)
+      .getUsers(pageSize, pageIndex + 1, searchParam)
       .pipe(finalize(() => this.loading = false));
-  }
-
-  private initUsers(users: IUser[]) {
-    this.users = users;
-    this.getLikedUsers();
   }
 
   private getLikedUsers(): void {
@@ -72,21 +76,32 @@ export class UsersPageComponent implements OnInit, OnDestroy {
       .pipe(take(1))
       .subscribe(favoriteUsers => this.favoriteUsers = favoriteUsers);
   }
+
+  private initUsers(): void {
+    this.getCurrentUsers(this.paginatorPageSize, 0, '')
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(users => this.users = users);
+  }
+
+  private setUsers(users: IUser[]): void {
+    this.users = users;
+    this.getLikedUsers();
+  }
  
   private initSubjects(): void {
     this.refresh$.asObservable()
       .pipe(
-        switchMap(() => this.getCurrentUsers()),
+        switchMap(() => this.getCurrentUsers(this.paginator.pageSize, this.paginator.pageIndex, this.searchParam$.value)),
         takeUntil(this.destroy$)
       )
-      .subscribe(users => this.initUsers(users));
+      .subscribe(users => this.setUsers(users));
 
     this.blockingRefresh$.asObservable()
       .pipe(
-        exhaustMap(() => this.getCurrentUsers()),
+        exhaustMap(() => this.getCurrentUsers(this.paginator.pageSize, this.paginator.pageIndex, this.searchParam$.value)),
         takeUntil(this.destroy$)
       )
-      .subscribe(users => this.initUsers(users));
+      .subscribe(users => this.setUsers(users));
 
     this.userInfo$.asObservable()
       .pipe(
@@ -119,14 +134,8 @@ export class UsersPageComponent implements OnInit, OnDestroy {
     this.saveUser$.next(userId);
   }
 
-  uploadUsers(): void {
-    this.getCurrentUsers()
-      .subscribe(users => this.initUsers(users));
-  }
-
   findUsers(param: string): void {
-    this.searchParam = param;
-    this.uploadUsers();
+    this.searchParam$.next(param);
   }
 
   likeItem(user: IUser): void {

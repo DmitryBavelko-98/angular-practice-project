@@ -23,6 +23,7 @@ import { AddressPipe } from './pipes/address.pipe';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import { AddressComponent } from './components/address/address.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { MatSortModule } from '@angular/material/sort';
     MenuComponent,
     FullNamePipe,
     AddressPipe,
+    AddressComponent,
   ],
   imports: [
     CommonModule,
@@ -73,6 +75,7 @@ import { MatSortModule } from '@angular/material/sort';
     MenuComponent,
     FullNamePipe,
     AddressPipe,
+    AddressComponent
   ],
   providers: [
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}},
